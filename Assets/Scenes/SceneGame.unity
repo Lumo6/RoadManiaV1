@@ -920,7 +920,7 @@ MonoBehaviour:
   probaAllObst: 0.5
   probaObsts:
   - proba: 100
-    obst: {fileID: 2034156587001074504, guid: 3a4f32b36d793ea438b3670df676f4d6, type: 3}
+    obst: {fileID: 1884074337756752357, guid: cb04eea70ee14ab49b68d12e2cbbf680, type: 3}
   - proba: 100
     obst: {fileID: 5389131940831772553, guid: fe217fa2db5f6ae4294f62965ee990a5, type: 3}
   - proba: 100
