@@ -919,12 +919,14 @@ MonoBehaviour:
   trsfParentRoad: {fileID: 2032301595}
   probaAllObst: 0.5
   probaObsts:
-  - proba: 50
-    obst: {fileID: 8780424320546655309, guid: 71782582b9d2cac4cba5251a3b767d13, type: 3}
-  - proba: 50
-    obst: {fileID: 1884074337756752357, guid: cb04eea70ee14ab49b68d12e2cbbf680, type: 3}
+  - proba: 100
+    obst: {fileID: 2034156587001074504, guid: 3a4f32b36d793ea438b3670df676f4d6, type: 3}
+  - proba: 100
+    obst: {fileID: 5389131940831772553, guid: fe217fa2db5f6ae4294f62965ee990a5, type: 3}
+  - proba: 100
+    obst: {fileID: 3424649009204883445, guid: 28493fb69e4ee1e4d818bc5416c502fa, type: 3}
   increasePeriod: 10
-  isDebug: 1
+  isDebug: 0
 --- !u!1001 &1478325925
 PrefabInstance:
   m_ObjectHideFlags: 0
