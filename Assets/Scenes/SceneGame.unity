@@ -912,10 +912,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2108729291}
+  difficultyManager: {fileID: 11400000, guid: 3884e2196efdc6c43a53e324d7a35148, type: 2}
   pattern: {fileID: 100000, guid: 67ee4b2bd8e816a478684a2b7e3b5439, type: 3}
   nbPatternsInitRoad: 20
   posInitPattern: {fileID: 2108729291}
-  distDestructionPattern: 50
   trsfParentRoad: {fileID: 2032301595}
   probaAllObst: 0.5
   probaObsts:

@@ -8,6 +8,9 @@ public class CreateRealTimeRoad : MonoBehaviour
     private float lastPosPlayer;
     private Vector3 dimPattern;
 
+    [Header("Niveau de difficulté")]
+    public DifficultyManager difficultyManager;
+
     [Space(20)]
     [Header("Road & Patterns")]
     public GameObject pattern;
@@ -15,7 +18,6 @@ public class CreateRealTimeRoad : MonoBehaviour
     public int nbPatternsInitRoad = 20;
     public Transform posInitPattern;
     [Tooltip("Distance au player au-delà de laquelle un pattern procédural est supprimé")]
-    public float distDestructionPattern;
     public Transform trsfParentRoad = null;
     private Vector3 lastPosPattern;
 
@@ -84,7 +86,7 @@ public class CreateRealTimeRoad : MonoBehaviour
             lastPosPlayer = player.position.z;
         }
 
-        if (lastPosPattern.z - lastPosPlayer <= dimPattern.x * 10)
+        if (lastPosPattern.z - lastPosPlayer <= dimPattern.x * 30)
         {
             GameObject newPattern = ir.AddPatternRoad(pattern, ref lastPosPattern, "patternRd" + nbPatternsInitRoad++, trsfParentRoad);
 
@@ -97,11 +99,11 @@ public class CreateRealTimeRoad : MonoBehaviour
                 if (randValue <= obstacleData.proba)
                 {
                     Vector3 position = newPattern.transform.position;
-                    Vector3 obstaclePosition = position + new Vector3(
-                        Random.Range(-dimPattern.x / 2, dimPattern.x / 2),
-                        obstacleData.obst.transform.position.y,
-                        Random.Range(-dimPattern.z / 2, dimPattern.z / 2)
-                    );
+
+                    float offsetX = Random.Range(-dimPattern.x / 2 - 3f, dimPattern.x / 2 + 3f);
+                    float offsetZ = Random.Range(-dimPattern.z / 2 - 3f, dimPattern.z / 2 + 3f);
+
+                    Vector3 obstaclePosition = position + new Vector3(offsetX, obstacleData.obst.transform.position.y, offsetZ);
 
                     bool isAllowed = true;
                     foreach (GameObject o in obstacleList)
@@ -114,16 +116,18 @@ public class CreateRealTimeRoad : MonoBehaviour
                         if (renderer != null && obstacleRenderer != null)
                         {
                             float minDistance = Mathf.Max(obstacleRenderer.bounds.size.x, obstacleRenderer.bounds.size.z) * 2;
-                            if (Vector3.Distance(obstaclePosition, o.transform.position) <= minDistance)
+                            int generateNumberForKnowIfGenerationOfObstaclesIsPossibleForDifficultyLevel = Random.Range(1, 101);
+                            if (Vector3.Distance(obstaclePosition, o.transform.position) <= minDistance || generateNumberForKnowIfGenerationOfObstaclesIsPossibleForDifficultyLevel > 90.0f + difficultyManager.difficultyLevel * 5)
                             {
                                 isAllowed = false;
                                 break;
                             }
                         }
                     }
-
+                        
                     if (isAllowed && !isDebug)
                     {
+                        // Instancier l'obstacle à la position calculée
                         GameObject obstacle = Instantiate(obstacleData.obst, obstaclePosition, obstacleData.obst.transform.rotation, newPattern.transform);
                         obstacleList.Add(obstacle);
                     }
@@ -131,7 +135,7 @@ public class CreateRealTimeRoad : MonoBehaviour
                 }
             }
 
-            if (ir.roads.Count > 0)
+            if (ir.roads.Count > 50)
             {
                 GameObject roadToDestroy = ir.roads[0];
                 ir.roads.RemoveAt(0);
