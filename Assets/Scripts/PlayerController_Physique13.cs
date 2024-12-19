@@ -7,20 +7,18 @@ public class PlayerController_Physique13 : MonoBehaviour
     public GameObject player;
     [Header("AVEC courbe d'animation")]
     [Range(3, 9)]
-    public float minSpeed = 6f;
+    public float minSpeed;
     [Range(10, 30)]
-    public float maxSpeed = 20f;
+    public float maxSpeed;
     public float turnspeed;
     [Range(3, 10)]
     [Tooltip("Temps en seconde (float) pour passer de la vittesse MIN à MAX")]
     public float timeFromMinToMax = 5.0f;
     public AnimationCurve accelerationSpeedCURVE;
     private float accel_x = 0;
-    private float speed_y;
     private float speed;
     private int signAccel;
     private float amplitudeSpeed;
-    // définir un coefficient entre la décélération (absence d'accélération et frein) et le freinage
     private const float RAPPORT_DECELERATION_FREINAGE = 3.0f;
     private float horizontalInput;
     private float forwardInput;
@@ -30,10 +28,14 @@ public class PlayerController_Physique13 : MonoBehaviour
 
     private bool bCheckRotaY = true;
 
+    private GameManager GM;
+
     // Start is called before the first frame update
     void Start()
     {
-        //StatsGame.instance.InitStatsGame(player.transform);
+        GM = GameManager.instance;
+        minSpeed = GM.minSpeed;
+        maxSpeed = GM.maxSpeed;
         rb = player.GetComponent<Rigidbody>();
         rb.isKinematic = false;
         speed = minSpeed;
@@ -106,4 +108,23 @@ public class PlayerController_Physique13 : MonoBehaviour
             rb.MoveRotation(rb.rotation * rotation);
         }
     }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Bonus"))
+        {
+            GameManager.instance.Bonus(5f, 10f);
+            SoundManager.instance.PlayBonusSound();
+            Debug.Log("Bonus activé !");
+            Destroy(other.gameObject);
+        }
+        else if (other.CompareTag("Malus"))
+        {
+            GameManager.instance.Malus(5f, 10f);
+            SoundManager.instance.PlayMalusSound();
+            Debug.Log("Malus activé !");
+            Destroy(other.gameObject);
+        }
+    }
+
+
 }
