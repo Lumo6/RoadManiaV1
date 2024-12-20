@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public static SoundManager instance;
+    private static SoundManager _instance;
 
     public AudioClip bonusSound;
     public AudioClip malusSound;
@@ -10,17 +10,20 @@ public class SoundManager : MonoBehaviour
 
     private AudioSource audioSource;
 
+    public static SoundManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+                Debug.LogError("GameManager is null !!!");
+
+            return _instance;
+        }
+    }
+
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
+        _instance = this;
         audioSource = GetComponent<AudioSource>();
     }
 

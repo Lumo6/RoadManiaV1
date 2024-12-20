@@ -33,9 +33,9 @@ public class PlayerController_Physique13 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GM = GameManager.instance;
-        minSpeed = GM.minSpeed;
-        maxSpeed = GM.maxSpeed;
+        minSpeed = GameManager.Instance.minSpeed;
+        maxSpeed = GameManager.Instance.maxSpeed;
+        Debug.Log($"PlayerController initialized: minSpeed = {minSpeed}, maxSpeed = {maxSpeed}");
         rb = player.GetComponent<Rigidbody>();
         rb.isKinematic = false;
         speed = minSpeed;
@@ -68,6 +68,8 @@ public class PlayerController_Physique13 : MonoBehaviour
         {
             SceneManager.LoadScene("SceneLoser");
         }
+        Debug.Log($"Forward Input: {forwardInput}, SignAccel: {signAccel}");
+
     }
     void FixedUpdate()
     {
@@ -107,20 +109,22 @@ public class PlayerController_Physique13 : MonoBehaviour
         {
             rb.MoveRotation(rb.rotation * rotation);
         }
+        Debug.Log($"Speed before clamp: {speed}, after clamp: {Mathf.Clamp(speed, minSpeed, maxSpeed)}");
+
     }
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Bonus"))
         {
-            GameManager.instance.Bonus(5f, 10f);
-            SoundManager.instance.PlayBonusSound();
+            GameManager.Instance.Bonus(5f, 10f);
+            SoundManager.Instance.PlayBonusSound();
             Debug.Log("Bonus activé !");
             Destroy(other.gameObject);
         }
         else if (other.CompareTag("Malus"))
         {
-            GameManager.instance.Malus(5f, 10f);
-            SoundManager.instance.PlayMalusSound();
+            GameManager.Instance.Malus(5f, 10f);
+            SoundManager.Instance.PlayMalusSound();
             Debug.Log("Malus activé !");
             Destroy(other.gameObject);
         }

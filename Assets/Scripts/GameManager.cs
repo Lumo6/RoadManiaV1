@@ -3,22 +3,25 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    private static GameManager _instance;
 
     public float maxSpeed = 20f;
     public float minSpeed = 6f;
+    public static GameObject bonusmalus;
     public Canvas MalusVision; // Reference to the MalusVision canvas
 
+    public static GameManager Instance
+    {
+        get {
+            if (_instance == null)
+                Debug.LogError("GameManager is null !!!");
+
+            return _instance;
+        }   
+    }
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        _instance = this;
     }
 
     public void Bonus(float bonusAmount, float duration)
