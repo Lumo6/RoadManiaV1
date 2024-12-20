@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CreateRealTimeRoad : MonoBehaviour
@@ -15,7 +17,6 @@ public class CreateRealTimeRoad : MonoBehaviour
     public int nbPatternsInitRoad = 20;
     public Transform posInitPattern;
     [Tooltip("Distance au player au-delà de laquelle un pattern procédural est supprimé")]
-    public float distDestructionPattern;
     public Transform trsfParentRoad = null;
     private Vector3 lastPosPattern;
 
@@ -31,6 +32,8 @@ public class CreateRealTimeRoad : MonoBehaviour
         public GameObject obst; // L'objet obstacle
     }
 
+    [Header("Paramètres des obstacles")]
+    [Tooltip("Liste des obstacles avec leur probabilité d'apparition associé")]
     public ProbaObst[] probaObsts;
     private float totalProbaObst;
     private Vector3 dimObst;
@@ -39,17 +42,34 @@ public class CreateRealTimeRoad : MonoBehaviour
     [Header("Difficulty")]
     [Tooltip("La difficulté (d'avoir un obstacle) augmente toutes les ... secondes")]
     [Range(5, 30)]
-    public float increasePeriod = 10;
+    public float increasePeriod = 10.0f;
+
+    [Header("Outils de déboguage")]
+    [Tooltip("Booléan empêchant la génération d'obstacles")]
+    public bool isDebug = false;
+
     private const float COEFF_INCREASE_DIFF = 1.05f;
     private BuildInitRoad ir;
     private float coeff;
 
+    // Environnement
     private GameObject SkyDome;
     private GameObject MountainSkybox;
 
+    // Liste des obstacles
     private List<GameObject> obstacleList = new List<GameObject>();
 
-    public bool isDebug = false;
+    // Difficulté du niveau
+    private Difficulty activeDifficulty;
+
+    // UI : Texte pour affichage des mètres parcourus
+    public TMP_Text TMP_Text_Meters;
+
+    // Variables pour la distance
+    private float startPlayerPosition;
+    private float distanceParcourue = 0.0f;
+
+    private float lastUpdateDistance = 0.0f;
 
     void Awake()
     {
@@ -60,6 +80,8 @@ public class CreateRealTimeRoad : MonoBehaviour
         dimPattern = pattern.GetComponent<Renderer>().bounds.size;
         player.position += new Vector3(0, 0, 10);
         lastPosPlayer = player.position.z;
+
+        startPlayerPosition = lastPosPlayer;
 
         totalProbaObst = 0.0f;
         float previousProb = 0;
@@ -74,70 +96,106 @@ public class CreateRealTimeRoad : MonoBehaviour
             p.proba /= totalProbaObst;
 
         InvokeRepeating(nameof(UpdateDifficulty), increasePeriod, increasePeriod);
+
+        activeDifficulty = Instantiate(MenuManager.activeDifficulty);
+
+        if (activeDifficulty != null && activeDifficulty.GetOptionsEvolutionDifficulte() == Difficulty.OptionsEvolutionDifficulte.Temps)
+        {
+            Debug.Log("Mode d'évolution des paramètres de difficultés : Temps");
+            InvokeRepeating(nameof(UpdateDifficultyLevel), activeDifficulty.toutesLesNbSecondes, activeDifficulty.toutesLesNbSecondes);
+        } else
+        {
+            Debug.Log("Mode d'évolution des paramètres de difficultés : Mètres");
+        }
+
         coeff = 0.0f;
     }
 
     void Update()
     {
+        distanceParcourue = startPlayerPosition - player.position.z;
+
+        Debug.Log(Mathf.Abs(distanceParcourue - lastUpdateDistance) + " " + activeDifficulty.toutesLesNbMetres);
+        // Tous les nb mètres, on update la difficulté du niveau
+        // Variable pour enregistrer la dernière distance où la mise à jour a eu lieu
+
+        if (activeDifficulty.GetOptionsEvolutionDifficulte() == Difficulty.OptionsEvolutionDifficulte.Distance 
+            && distanceParcourue != 0.0f 
+            && Mathf.Abs(distanceParcourue - lastUpdateDistance) >= activeDifficulty.toutesLesNbMetres)
+        {
+            // Mettre à jour la difficulté
+            UpdateDifficultyLevel();
+
+            // Mettre à jour la dernière distance de mise à jour
+            lastUpdateDistance = distanceParcourue;
+        }
+
+
         if ((player.position.z - lastPosPlayer) > dimPattern.x)
         {
             lastPosPlayer = player.position.z;
         }
 
-        if (lastPosPattern.z - lastPosPlayer <= dimPattern.x * 10)
+        if (lastPosPattern.z - lastPosPlayer <= dimPattern.x * 30)
         {
             GameObject newPattern = ir.AddPatternRoad(pattern, ref lastPosPattern, "patternRd" + nbPatternsInitRoad++, trsfParentRoad);
 
             SkyDome.transform.position += Vector3.forward * dimPattern.x;
             MountainSkybox.transform.position += Vector3.forward * dimPattern.x;
 
-            float randValue = Random.value;
-            foreach (ProbaObst obstacleData in probaObsts)
+            if (!isDebug)
             {
-                if (randValue <= obstacleData.proba)
+                float randValue = Random.value;
+                foreach (ProbaObst obstacleData in probaObsts)
                 {
-                    Vector3 position = newPattern.transform.position;
-                    Vector3 obstaclePosition = position + new Vector3(
-                        Random.Range(-dimPattern.x / 2, dimPattern.x / 2),
-                        obstacleData.obst.transform.position.y,
-                        Random.Range(-dimPattern.z / 2, dimPattern.z / 2)
-                    );
-
-                    bool isAllowed = true;
-                    foreach (GameObject o in obstacleList)
+                    if (randValue <= obstacleData.proba)
                     {
-                        if (o == null) continue;
+                        Vector3 position = newPattern.transform.position;
 
-                        Renderer renderer = GetRenderer(o);
-                        Renderer obstacleRenderer = GetRenderer(obstacleData.obst);
+                        float offsetX = Random.Range(-dimPattern.x / 2 - 5f, dimPattern.x / 2 + 5f);
+                        float offsetZ = Random.Range(-dimPattern.z / 2 - 5f, dimPattern.z / 2 + 5f);
 
-                        if (renderer != null && obstacleRenderer != null)
+                        Vector3 obstaclePosition = position + new Vector3(offsetX, obstacleData.obst.transform.position.y, offsetZ);
+
+                        bool isAllowed = true;
+                        foreach (GameObject o in obstacleList)
                         {
-                            float minDistance = Mathf.Max(obstacleRenderer.bounds.size.x, obstacleRenderer.bounds.size.z) * 2;
-                            if (Vector3.Distance(obstaclePosition, o.transform.position) <= minDistance)
+                            if (o == null) continue;
+
+                            Renderer renderer = GetRenderer(o);
+                            Renderer obstacleRenderer = GetRenderer(obstacleData.obst);
+
+                            if (renderer != null && obstacleRenderer != null)
                             {
-                                isAllowed = false;
-                                break;
+                                float minDistance = Mathf.Max(obstacleRenderer.bounds.size.x, obstacleRenderer.bounds.size.z) * 2;
+                                int generateNumberForKnowIfGenerationOfObstaclesIsPossibleForDifficultyLevel = Random.Range(1, 101);
+                                if (Vector3.Distance(obstaclePosition, o.transform.position) <= minDistance * activeDifficulty.offsetObstacle || generateNumberForKnowIfGenerationOfObstaclesIsPossibleForDifficultyLevel >= activeDifficulty.probaGeneration)
+                                {
+                                    isAllowed = false;
+                                    break;
+                                }
                             }
                         }
-                    }
 
-                    if (isAllowed && !isDebug)
-                    {
-                        GameObject obstacle = Instantiate(obstacleData.obst, obstaclePosition, obstacleData.obst.transform.rotation, newPattern.transform);
-                        obstacleList.Add(obstacle);
+                        if (isAllowed)
+                        {
+                            // Instancier l'obstacle à la position calculée
+                            GameObject obstacle = Instantiate(obstacleData.obst, obstaclePosition, obstacleData.obst.transform.rotation, newPattern.transform);
+                            obstacleList.Add(obstacle);
+                        }
+                        break;
                     }
-                    break;
                 }
-            }
+            } 
 
-            if (ir.roads.Count > 0)
+            if (ir.roads.Count > 50)
             {
                 GameObject roadToDestroy = ir.roads[0];
                 ir.roads.RemoveAt(0);
                 Destroy(roadToDestroy);
             }
         }
+        UpdateTextMeters();
     }
 
     private void UpdateDifficulty()
@@ -145,6 +203,14 @@ public class CreateRealTimeRoad : MonoBehaviour
         probaAllObst *= COEFF_INCREASE_DIFF;
         increasePeriod *= COEFF_INCREASE_DIFF;
     }
+
+    private void UpdateDifficultyLevel()
+    {
+        activeDifficulty.offsetObstacle *= 1 - (activeDifficulty.pourcentageReductionOffset/100);
+        activeDifficulty.probaGeneration *= 1 + (activeDifficulty.pourcentageAugmentationProbaGenration / 100);
+
+        Debug.Log($"Mise à jour des paramètres de difficulté : Offset : {activeDifficulty.offsetObstacle}, Proba : {activeDifficulty.probaGeneration} ");
+    } 
 
     private Renderer GetRenderer(GameObject obj)
     {
@@ -156,6 +222,15 @@ public class CreateRealTimeRoad : MonoBehaviour
                 return lods[0].renderers[0];
         }
         return obj.GetComponent<Renderer>();
+    }
+
+    private void UpdateTextMeters()
+    {
+        if (TMP_Text_Meters != null)
+        {
+            // Formater l'affichage pour avoir deux chiffres pour les secondes et millisecondes
+            TMP_Text_Meters.text = (Mathf.Abs(distanceParcourue)).ToString("F2") + " m"; // -distanceParcourue car on se déplace dans les négatifs
+        }
     }
 }
 
