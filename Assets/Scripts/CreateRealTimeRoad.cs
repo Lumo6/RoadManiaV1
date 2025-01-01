@@ -113,23 +113,16 @@ public class CreateRealTimeRoad : MonoBehaviour
 
     void Update()
     {
-        distanceParcourue = startPlayerPosition - player.position.z;
+        // Calcul de la distance parcourue
+        distanceParcourue = player.position.z - startPlayerPosition;
 
-        Debug.Log(Mathf.Abs(distanceParcourue - lastUpdateDistance) + " " + activeDifficulty.toutesLesNbMetres);
-        // Tous les nb mètres, on update la difficulté du niveau
-        // Variable pour enregistrer la dernière distance où la mise à jour a eu lieu
-
-        if (activeDifficulty.GetOptionsEvolutionDifficulte() == Difficulty.OptionsEvolutionDifficulte.Distance 
-            && distanceParcourue != 0.0f 
-            && Mathf.Abs(distanceParcourue - lastUpdateDistance) >= activeDifficulty.toutesLesNbMetres)
+        // Vérifier si la difficulté doit être mise à jour (en fonction de la distance)
+        if (activeDifficulty.GetOptionsEvolutionDifficulte() == Difficulty.OptionsEvolutionDifficulte.Distance
+            && distanceParcourue >= lastUpdateDistance + activeDifficulty.toutesLesNbMetres)
         {
-            // Mettre à jour la difficulté
             UpdateDifficultyLevel();
-
-            // Mettre à jour la dernière distance de mise à jour
-            lastUpdateDistance = distanceParcourue;
+            lastUpdateDistance += activeDifficulty.toutesLesNbMetres;
         }
-
 
         if ((player.position.z - lastPosPlayer) > dimPattern.x)
         {

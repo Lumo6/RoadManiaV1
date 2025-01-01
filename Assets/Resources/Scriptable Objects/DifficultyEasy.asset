@@ -16,8 +16,8 @@ MonoBehaviour:
   offsetObstacle: 3
   probaGeneration: 90
   timeChrono: 0
-  evolutionDifficulte: 0
+  evolutionDifficulte: 1
   pourcentageReductionOffset: 5
   pourcentageAugmentationProbaGenration: 5
   toutesLesNbSecondes: 5
-  toutesLesNbMetres: 0
+  toutesLesNbMetres: 100

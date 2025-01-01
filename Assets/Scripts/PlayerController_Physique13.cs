@@ -68,7 +68,6 @@ public class PlayerController_Physique13 : MonoBehaviour
         {
             SceneManager.LoadScene("SceneLoser");
         }
-        Debug.Log($"Forward Input: {forwardInput}, SignAccel: {signAccel}");
 
     }
     void FixedUpdate()
@@ -109,7 +108,6 @@ public class PlayerController_Physique13 : MonoBehaviour
         {
             rb.MoveRotation(rb.rotation * rotation);
         }
-        Debug.Log($"Speed before clamp: {speed}, after clamp: {Mathf.Clamp(speed, minSpeed, maxSpeed)}");
 
     }
     void OnTriggerEnter(Collider other)
