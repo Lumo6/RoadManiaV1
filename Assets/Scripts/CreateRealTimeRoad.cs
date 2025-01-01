@@ -67,7 +67,7 @@ public class CreateRealTimeRoad : MonoBehaviour
 
     // Variables pour la distance
     private float startPlayerPosition;
-    private float distanceParcourue = 0.0f;
+    public static float distanceParcourue = 0.0f;
 
     private float lastUpdateDistance = 0.0f;
 
@@ -222,7 +222,7 @@ public class CreateRealTimeRoad : MonoBehaviour
         if (TMP_Text_Meters != null)
         {
             // Formater l'affichage pour avoir deux chiffres pour les secondes et millisecondes
-            TMP_Text_Meters.text = (Mathf.Abs(distanceParcourue)).ToString("F2") + " m"; // -distanceParcourue car on se déplace dans les négatifs
+            TMP_Text_Meters.text = (Mathf.Abs(distanceParcourue)).ToString("F2") + " m";
         }
     }
 }
