@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LOD_Boulder
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6e18b21360db5d94caa08560934dd9ee, type: 3}
+      propertyPath: m_TagString
+      value: MalusScreen
+      objectReference: {fileID: 0}
     - target: {fileID: 4742473837712756890, guid: 6e18b21360db5d94caa08560934dd9ee, type: 3}
       propertyPath: m_LODs.Array.data[0].screenRelativeHeight
       value: 0.11
@@ -79,6 +83,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6e18b21360db5d94caa08560934dd9ee, type: 3}
       insertIndex: -1
       addedObject: {fileID: -7300403966358627027}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6e18b21360db5d94caa08560934dd9ee, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -837513433171465312}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6e18b21360db5d94caa08560934dd9ee, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6666002577292281438}
     - targetCorrespondingSourceObject: {fileID: 866450079774651607, guid: 6e18b21360db5d94caa08560934dd9ee, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7680052184867280855}
@@ -163,6 +173,40 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &-837513433171465312
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3424649009204883445}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-6666002577292281438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3424649009204883445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a816a56ff6eb3644e9661af462e75e80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 12
 --- !u!1 &4109156944646280921 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7331563837562731395, guid: 6e18b21360db5d94caa08560934dd9ee, type: 3}

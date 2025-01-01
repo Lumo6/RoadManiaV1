@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+
 
 public class CreateRealTimeRoad : MonoBehaviour
 {
@@ -169,7 +169,8 @@ public class CreateRealTimeRoad : MonoBehaviour
                             {
                                 float minDistance = Mathf.Max(obstacleRenderer.bounds.size.x, obstacleRenderer.bounds.size.z) * 2;
                                 int generateNumberForKnowIfGenerationOfObstaclesIsPossibleForDifficultyLevel = Random.Range(1, 101);
-                                if (Vector3.Distance(obstaclePosition, o.transform.position) <= minDistance * activeDifficulty.offsetObstacle || generateNumberForKnowIfGenerationOfObstaclesIsPossibleForDifficultyLevel >= activeDifficulty.probaGeneration)
+                                if (Vector3.Distance(obstaclePosition, o.transform.position) <= minDistance * activeDifficulty.offsetObstacle ||
+                                    generateNumberForKnowIfGenerationOfObstaclesIsPossibleForDifficultyLevel >= activeDifficulty.probaGeneration)
                                 {
                                     isAllowed = false;
                                     break;
@@ -179,14 +180,15 @@ public class CreateRealTimeRoad : MonoBehaviour
 
                         if (isAllowed)
                         {
-                            // Instancier l'obstacle à la position calculée
+                            // Instantiate the obstacle and attach appropriate script
                             GameObject obstacle = Instantiate(obstacleData.obst, obstaclePosition, obstacleData.obst.transform.rotation, newPattern.transform);
                             obstacleList.Add(obstacle);
                         }
                         break;
                     }
                 }
-            } 
+            }
+
 
             if (ir.roads.Count > 50)
             {

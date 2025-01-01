@@ -1,11 +1,17 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SoundManager : MonoBehaviour
 {
     private static SoundManager _instance;
 
-    public AudioClip bonusSound;
-    public AudioClip malusSound;
+    public AudioClip bonusGhostSound;
+    public AudioClip malusScreenSound;
+    // Events for bonus and malus
+    public UnityEvent OnBonusGhost;
+    public UnityEvent OnMalusScreen;
+
+
     public AudioClip collisionSound;
 
     private AudioSource audioSource;
@@ -24,17 +30,28 @@ public class SoundManager : MonoBehaviour
     private void Awake()
     {
         _instance = this;
+
+        // Initialize events if null
+        if (OnBonusGhost == null)
+            OnBonusGhost = new UnityEvent();
+        if (OnMalusScreen == null)
+            OnMalusScreen = new UnityEvent();
+
+        // Subscribe methods to the events
+        OnBonusGhost.AddListener(PlayBonusGhostSound);
+        OnMalusScreen.AddListener(PlayMalusScreenSound);
+
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void PlayBonusSound()
+    public void PlayBonusGhostSound()
     {
-        audioSource.PlayOneShot(bonusSound);
+        audioSource.PlayOneShot(bonusGhostSound);
     }
 
-    public void PlayMalusSound()
+    public void PlayMalusScreenSound()
     {
-        audioSource.PlayOneShot(malusSound);
+        audioSource.PlayOneShot(malusScreenSound);
     }
 
     public void PlayCollisionSound()

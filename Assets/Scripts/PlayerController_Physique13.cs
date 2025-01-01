@@ -112,23 +112,4 @@ public class PlayerController_Physique13 : MonoBehaviour
         Debug.Log($"Speed before clamp: {speed}, after clamp: {Mathf.Clamp(speed, minSpeed, maxSpeed)}");
 
     }
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Bonus"))
-        {
-            GameManager.Instance.Bonus(5f, 10f);
-            SoundManager.Instance.PlayBonusSound();
-            Debug.Log("Bonus activé !");
-            Destroy(other.gameObject);
-        }
-        else if (other.CompareTag("Malus"))
-        {
-            GameManager.Instance.Malus(5f, 10f);
-            SoundManager.Instance.PlayMalusSound();
-            Debug.Log("Malus activé !");
-            Destroy(other.gameObject);
-        }
-    }
-
-
 }
