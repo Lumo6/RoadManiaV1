@@ -13,7 +13,7 @@ public class GhostPlayer : MonoBehaviour
     {
         if (MenuManager.activeDifficulty.difficultyLevel == 3)
         {
-            GhostSaver saver = gameObject.AddComponent<GhostSaver>();
+            SaverManager saver = SaverManager.Instance;
             ghostData = saver.LoadGhostData("top_run_player");
 
             if (ghostData == null)

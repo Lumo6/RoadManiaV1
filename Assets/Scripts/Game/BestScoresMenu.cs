@@ -11,9 +11,9 @@ public class BestScoresMenu : MonoBehaviour
 
     void OnEnable()
     {
-        GhostSaver saver = new GhostSaver();
+        SaverManager saver = SaverManager.Instance;
 
-        BestDistancesData bestDistancesData = saver.LoadBestDistances("best_distances_player");
+        BestDistancesData bestDistancesData = saver.LoadBestDistances(GlobalVariables.top_3_run_filename);
 
         if (bestDistancesData != null)
         {
@@ -21,7 +21,7 @@ public class BestScoresMenu : MonoBehaviour
 
             for (int i = 0; i < bestDistancesData.bestDistances.Count && i < texts.Length; i++)
             {
-                texts[i] = $"{bestDistancesData.bestDistances[i]} m";
+                texts[i] = $"{bestDistancesData.bestDistances[i].ToString("F2")} m";
             }
 
             firstText.text = texts[0];

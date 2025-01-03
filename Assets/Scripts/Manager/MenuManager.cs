@@ -7,6 +7,7 @@ public class MenuManager : MonoBehaviour
 
     public void PlayGame(int difficulty)
     {
+        // Les différents niveaux de difficultés
         Difficulty[] difficultyList = Resources.LoadAll<Difficulty>("Scriptable Objects");
 
         if (difficultyList.Length == 0)

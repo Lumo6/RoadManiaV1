@@ -10,11 +10,6 @@ public class WheelController : MonoBehaviour
 
     public Rigidbody rb;
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
         float speed = rb.velocity.magnitude; // Obtenir la vitesse actuelle du véhicule

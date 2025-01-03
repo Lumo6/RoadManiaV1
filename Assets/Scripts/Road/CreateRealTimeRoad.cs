@@ -67,7 +67,6 @@ public class CreateRealTimeRoad : MonoBehaviour
 
     // Variables pour la distance
     private float startPlayerPosition;
-    public static float distanceParcourue = 0.0f;
 
     private float lastUpdateDistance = 0.0f;
 
@@ -114,11 +113,11 @@ public class CreateRealTimeRoad : MonoBehaviour
     void Update()
     {
         // Calcul de la distance parcourue
-        distanceParcourue = player.position.z - startPlayerPosition;
+        GlobalVariables.distanceParcourue = player.position.z - startPlayerPosition;
 
         // Vérifier si la difficulté doit être mise à jour (en fonction de la distance)
         if (activeDifficulty.GetOptionsEvolutionDifficulte() == Difficulty.OptionsEvolutionDifficulte.Distance
-            && distanceParcourue >= lastUpdateDistance + activeDifficulty.toutesLesNbMetres)
+            && GlobalVariables.distanceParcourue >= lastUpdateDistance + activeDifficulty.toutesLesNbMetres)
         {
             UpdateDifficultyLevel();
             lastUpdateDistance += activeDifficulty.toutesLesNbMetres;
@@ -222,7 +221,7 @@ public class CreateRealTimeRoad : MonoBehaviour
         if (TMP_Text_Meters != null)
         {
             // Formater l'affichage pour avoir deux chiffres pour les secondes et millisecondes
-            TMP_Text_Meters.text = (Mathf.Abs(distanceParcourue)).ToString("F2") + " m";
+            TMP_Text_Meters.text = (Mathf.Abs(GlobalVariables.distanceParcourue)).ToString("F2") + " m";
         }
     }
 }

@@ -127,6 +127,4 @@ public class PlayerController_Physique13 : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
-
-
 }

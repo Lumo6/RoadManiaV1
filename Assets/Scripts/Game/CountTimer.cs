@@ -51,8 +51,8 @@ public class CountTimer : MonoBehaviour
         {
             GhostData data = player.GetComponent<GhostRecorder>().GetRecordedData();
 
-            GhostSaver saver = gameObject.AddComponent<GhostSaver>();
-            saver.SaveBestDistances(CreateRealTimeRoad.distanceParcourue, data, "best_distances_player");
+            SaverManager saver = SaverManager.Instance;
+            saver.SaveBestDistances(GlobalVariables.distanceParcourue, data, GlobalVariables.top_3_run_filename);
 
             SceneManager.LoadScene("SceneLoser");
         }
