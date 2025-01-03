@@ -54,24 +54,25 @@ public class SaverManager
         if (bestDistancesData == null)
         {
             bestDistancesData = new BestDistancesData();
-            bestDistancesData.bestDistances.Insert(0, distance);
+            bestDistancesData.bestDistances.Add(distance);
+
             SaveGhostData(data, GlobalVariables.bestRunFileName);
         }
         else
         {
-            for (int i = 0; i < bestDistancesData.bestDistances.Count; i++)
-            {
-                if (distance > bestDistancesData.bestDistances[i])
-                {
-                    bestDistancesData.bestDistances.Insert(i, distance);
-                    if (bestDistancesData.bestDistances.Count > 3) bestDistancesData.bestDistances.RemoveAt(3);
+            bestDistancesData.bestDistances.Add(distance);
+            bestDistancesData.bestDistances.Sort((a, b) => b.CompareTo(a)); // Tri décroissant
 
-                    if (i == 0)
-                    {
-                        SaveGhostData(data, GlobalVariables.bestRunFileName);
-                    }
-                    break;
-                }
+            // Garde uniquement les 3 meilleurs scores
+            if (bestDistancesData.bestDistances.Count > 3)
+            {
+                bestDistancesData.bestDistances.RemoveAt(3);
+            }
+
+            // Sauvegarde le fantôme uniquement si la distance est le meilleur score
+            if (bestDistancesData.bestDistances[0] == distance)
+            {
+                SaveGhostData(data, GlobalVariables.bestRunFileName);
             }
         }
 

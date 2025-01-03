@@ -15,4 +15,9 @@ MonoBehaviour:
   difficultyLevel: 3
   offsetObstacle: 2
   probaGeneration: 95
-  timeChrono: 10
+  timeChrono: 5
+  evolutionDifficulte: 0
+  pourcentageReductionOffset: 0
+  pourcentageAugmentationProbaGenration: 0
+  toutesLesNbSecondes: 0
+  toutesLesNbMetres: 0

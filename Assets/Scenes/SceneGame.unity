@@ -1406,7 +1406,7 @@ MonoBehaviour:
   - proba: 100
     obst: {fileID: 3424649009204883445, guid: 28493fb69e4ee1e4d818bc5416c502fa, type: 3}
   increasePeriod: 10
-  isDebug: 1
+  isDebug: 0
   TMP_Text_Meters: {fileID: 1652117855}
 --- !u!1001 &1478325925
 PrefabInstance:

@@ -14,10 +14,10 @@ public class WheelController : MonoBehaviour
     {
         float speed = rb.velocity.magnitude; // Obtenir la vitesse actuelle du véhicule
 
-        // Calculer l'angle de braquage en fonction de la vitesse
+        // Calcul de l'angle de braquage en fonction de la vitesse
         float currentSteerAngle = Mathf.Lerp(maxSteerAngle, minSteerAngle, speed / maxSpeed);
 
-        // Appliquer la rotation des roues avant en fonction de l'entrée du joueur
+        // Applique la rotation des roues avant en fonction de l'entrée du joueur
         float steerInput = Input.GetAxis("Horizontal");
         frontLeftWheel.localRotation = Quaternion.Euler(0f, steerInput * currentSteerAngle, 0f);
         frontRightWheel.localRotation = Quaternion.Euler(0f, steerInput * currentSteerAngle, 0f);
