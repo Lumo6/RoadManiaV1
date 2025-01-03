@@ -71,7 +71,6 @@ public class GhostSaver : MonoBehaviour
         if (File.Exists(filePath))
         {
             string json = File.ReadAllText(filePath);
-            Debug.Log(Application.persistentDataPath);
             return JsonUtility.FromJson<BestDistancesData>(json);
         }
         return null;
