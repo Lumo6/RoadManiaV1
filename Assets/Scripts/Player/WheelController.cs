@@ -4,22 +4,48 @@ public class WheelController : MonoBehaviour
 {
     public Transform frontLeftWheel;
     public Transform frontRightWheel;
-    public float maxSteerAngle = 30f; // Angle maximum à faible vitesse
-    public float minSteerAngle = 5f;  // Angle minimum à haute vitesse
-    public float maxSpeed = 100f;     // Vitesse maximale pour normaliser l'effet
+    public Transform rearLeftWheel;
+    public Transform rearRightWheel;
 
     public Rigidbody rb;
 
+    public ParticleSystem brakeParticlesFrontLeft;
+    public ParticleSystem brakeParticlesFrontRight;
+    public ParticleSystem brakeParticlesRearLeft;
+    public ParticleSystem brakeParticlesRearRight;
+
     void Update()
     {
-        float speed = rb.velocity.magnitude; // Obtenir la vitesse actuelle du véhicule
+        float speed = rb.velocity.magnitude;
 
-        // Calcul de l'angle de braquage en fonction de la vitesse
-        float currentSteerAngle = Mathf.Lerp(maxSteerAngle, minSteerAngle, speed / maxSpeed);
-
-        // Applique la rotation des roues avant en fonction de l'entrée du joueur
         float steerInput = Input.GetAxis("Horizontal");
-        frontLeftWheel.localRotation = Quaternion.Euler(0f, steerInput * currentSteerAngle, 0f);
-        frontRightWheel.localRotation = Quaternion.Euler(0f, steerInput * currentSteerAngle, 0f);
+        frontLeftWheel.localRotation = Quaternion.Euler(0f, steerInput * 30f, 0f);
+        frontRightWheel.localRotation = Quaternion.Euler(0f, steerInput * 30f, 0f);
+
+        bool isBraking = Input.GetKey(KeyCode.S);
+
+        UpdateParticleEffect(isBraking, frontLeftWheel, brakeParticlesFrontLeft);
+        UpdateParticleEffect(isBraking, frontRightWheel, brakeParticlesFrontRight);
+        UpdateParticleEffect(isBraking, rearLeftWheel, brakeParticlesRearLeft);
+        UpdateParticleEffect(isBraking, rearRightWheel, brakeParticlesRearRight);
+    }
+
+    void UpdateParticleEffect(bool isBraking, Transform wheel, ParticleSystem brakeParticles)
+    {
+        if (isBraking)
+        {
+            if (!brakeParticles.isPlaying)
+            {
+                brakeParticles.Play();
+            }
+            brakeParticles.transform.position = wheel.position;
+        }
+        else
+        {
+            if (brakeParticles.isPlaying)
+            {
+                brakeParticles.Stop();
+            }
+        }
     }
 }
