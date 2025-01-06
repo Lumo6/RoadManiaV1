@@ -5,7 +5,7 @@ using UnityEngine;
 public class GhostPlayer : MonoBehaviour
 {
     private GhostData ghostData;
-    
+
     private int currentIndex = 0;
     private float playbackTime = 0;
 
@@ -18,12 +18,12 @@ public class GhostPlayer : MonoBehaviour
 
             if (ghostData == null)
             {
-                Debug.LogWarning("Aucun temps enregistré pour le niveau de difficulté 3 !");
+                Debug.LogWarning("Aucun temps enregistrï¿½ pour le niveau de difficultï¿½ 3 !");
                 Destroy(gameObject);
             }
             else
             {
-                Debug.Log("Données fantômes chargées avec succès !");
+                Debug.Log("Donnï¿½es fantï¿½mes chargï¿½es avec succï¿½s !");
             }
 
             Collider[] colliders = GetComponentsInChildren<Collider>();
@@ -31,11 +31,11 @@ public class GhostPlayer : MonoBehaviour
             {
                 col.enabled = false;
             }
-            Debug.Log("Tous les colliders ont été supprimés du Ghost.");
+            Debug.Log("Tous les colliders ont ï¿½tï¿½ supprimï¿½s du Ghost.");
         }
         else
         {
-            Debug.Log("Difficulté différente, pas de données fantômes chargées.");
+            Debug.Log("Difficultï¿½ diffï¿½rente, pas de donnï¿½es fantï¿½mes chargï¿½es.");
             Destroy(gameObject);
         }
     }
@@ -54,8 +54,8 @@ public class GhostPlayer : MonoBehaviour
         if (currentIndex < ghostData.timestamps.Count - 1)
         {
             /* Interpolation entre deux positions
-               (playbackTime - ghostData.timestamps[currentIndex]) = durée depuis le dernier enregistrement du fantôme jusqu'au moment actuel
-               ghostData.timestamps[currentIndex + 1] - ghostData.timestamps[currentIndex] = durée totale l'enregistrement de la position suivante et la position actuelle
+               (playbackTime - ghostData.timestamps[currentIndex]) = durï¿½e depuis le dernier enregistrement du fantï¿½me jusqu'au moment actuel
+               ghostData.timestamps[currentIndex + 1] - ghostData.timestamps[currentIndex] = durï¿½e totale l'enregistrement de la position suivante et la position actuelle
              */
             float t = (playbackTime - ghostData.timestamps[currentIndex]) / (ghostData.timestamps[currentIndex + 1] - ghostData.timestamps[currentIndex]);
 
