@@ -1185,10 +1185,22 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1925923171}
+        m_TargetAssemblyTypeName: SliderVolume, Assembly-CSharp
+        m_MethodName: ChangeVolume
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &598219028
 GameObject:
   m_ObjectHideFlags: 0
@@ -5023,7 +5035,6 @@ MonoBehaviour:
   hoverSound: {fileID: 8300000, guid: 890b3cb51327b48408975acda2f9b336, type: 3}
   clickSound: {fileID: 8300000, guid: 39309f1bee793f14ba9e3d144f9a3d8a, type: 3}
   quitSound: {fileID: 8300000, guid: cdd8aad58104a1c4b8e89cc97da5b4dc, type: 3}
-  difficultySound: {fileID: 8300000, guid: c82c8841163a49e43bc0720f976249a4, type: 3}
 --- !u!82 &1777282778
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5269,6 +5280,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1799894211}
   m_CullTransparentMesh: 1
+--- !u!1 &1925923170
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1925923172}
+  - component: {fileID: 1925923171}
+  m_Layer: 0
+  m_Name: SliderVolume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1925923171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925923170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35fe188e8fdd43e49aeeaf1a43eeec12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeSlider: {fileID: 585544427}
+--- !u!4 &1925923172
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925923170}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.8, y: 3.1702125, z: -11.08}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1974377829
 GameObject:
   m_ObjectHideFlags: 0
@@ -5574,3 +5630,4 @@ SceneRoots:
   - {fileID: 231940153}
   - {fileID: 2009331812}
   - {fileID: 1777282779}
+  - {fileID: 1925923172}

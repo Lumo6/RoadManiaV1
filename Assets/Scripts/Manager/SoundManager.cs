@@ -16,6 +16,8 @@ public class SoundManager : MonoBehaviour
     public UnityEvent OnMalusScreen;
     public UnityEvent OnCollision;
 
+    private AudioSource[] audioSources;
+
     public static SoundManager Instance
     {
         get
@@ -43,6 +45,13 @@ public class SoundManager : MonoBehaviour
         OnBonusGhost.AddListener(PlayBonusGhostSound);
         OnMalusScreen.AddListener(PlayMalusScreenSound);
         OnCollision.AddListener(PlayCollisionSound);
+
+        audioSources = GetComponents<AudioSource>();
+
+        foreach(AudioSource audioSource in audioSources)
+        {
+            audioSource.volume = GlobalVariables.soundLevel;
+        }
     }
 
     public void PlayBonusGhostSound()

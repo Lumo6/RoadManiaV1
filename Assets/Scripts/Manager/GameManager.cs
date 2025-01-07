@@ -5,8 +5,9 @@ using UnityEngine.Events;
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
-
+    [Range(10, 30)]
     public float maxSpeed = 20f;
+    [Range(3, 9)]
     public float minSpeed = 6f;
     public static GameObject bonusmalus;
     public GameObject MalusVision; // Reference to the MalusVision canvas

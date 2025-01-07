@@ -14,6 +14,13 @@ public class WheelController : MonoBehaviour
     public ParticleSystem brakeParticlesRearLeft;
     public ParticleSystem brakeParticlesRearRight;
 
+    public AudioClip brakeSound;
+    public AudioSource sourceSound;
+
+    void Awake() {
+        sourceSound.volume = GlobalVariables.soundLevel;
+    }
+
     void Update()
     {
         float speed = rb.velocity.magnitude;
@@ -39,12 +46,22 @@ public class WheelController : MonoBehaviour
                 brakeParticles.Play();
             }
             brakeParticles.transform.position = wheel.position;
+
+            if (!sourceSound.isPlaying)
+            {
+                sourceSound.PlayOneShot(brakeSound);
+            }
         }
         else
         {
             if (brakeParticles.isPlaying)
             {
                 brakeParticles.Stop();
+            }
+
+            if (sourceSound.isPlaying)
+            {
+                sourceSound.Stop();
             }
         }
     }

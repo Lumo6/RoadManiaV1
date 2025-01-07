@@ -6,10 +6,8 @@ public class PlayerController_Physique13 : MonoBehaviour
     public Transform positionRoute;
     public GameObject player;
     [Header("AVEC courbe d'animation")]
-    [Range(3, 9)]
-    public float minSpeed;
-    [Range(10, 30)]
-    public float maxSpeed;
+    private float minSpeed;
+    private float maxSpeed;
     public float turnspeed;
     [Range(3, 10)]
     [Tooltip("Temps en seconde (float) pour passer de la vittesse MIN � MAX")]

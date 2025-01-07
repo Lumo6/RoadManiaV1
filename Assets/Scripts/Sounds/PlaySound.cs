@@ -12,6 +12,11 @@ public class PlaySound : MonoBehaviour
     public AudioClip clickSound;
     public AudioClip quitSound;
 
+    void Update()
+    {
+        audioSource.volume = GlobalVariables.soundLevel;
+    }
+
     public void PlayHoverSound()
     {
         if (audioSource != null && hoverSound != null)
