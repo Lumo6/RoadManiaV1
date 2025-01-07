@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: DifficultyHard
   m_EditorClassIdentifier: 
   difficultyLevel: 2
-  offsetObstacle: 1
+  offsetObstacle: 0.5
   probaGeneration: 100
   timeChrono: 0
   evolutionDifficulte: 0
-  pourcentageReductionOffset: 0
-  pourcentageAugmentationProbaGenration: 0
-  toutesLesNbSecondes: 0
-  toutesLesNbMetres: 0
+  pourcentageReductionOffset: 5
+  pourcentageAugmentationProbaGenration: 5
+  toutesLesNbSecondes: 10
+  toutesLesNbMetres: 100
