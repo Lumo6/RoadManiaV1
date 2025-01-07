@@ -67,7 +67,6 @@ public class CreateRealTimeRoad : MonoBehaviour
 
     // Variables pour la distance
     private float startPlayerPosition;
-    private float distanceParcourue = 0.0f;
 
     private float lastUpdateDistance = 0.0f;
 
@@ -113,21 +112,16 @@ public class CreateRealTimeRoad : MonoBehaviour
 
     void Update()
     {
-        distanceParcourue = startPlayerPosition - player.position.z;
-        // Tous les nb m�tres, on update la difficult� du niveau
-        // Variable pour enregistrer la derni�re distance o� la mise � jour a eu lieu
+        // Calcul de la distance parcourue
+        GlobalVariables.distanceParcourue = player.position.z - startPlayerPosition;
 
+        // V�rifier si la difficult� doit �tre mise � jour (en fonction de la distance)
         if (activeDifficulty.GetOptionsEvolutionDifficulte() == Difficulty.OptionsEvolutionDifficulte.Distance
-            && distanceParcourue != 0.0f
-            && Mathf.Abs(distanceParcourue - lastUpdateDistance) >= activeDifficulty.toutesLesNbMetres)
+            && GlobalVariables.distanceParcourue >= lastUpdateDistance + activeDifficulty.toutesLesNbMetres)
         {
-            // Mettre � jour la difficult�
             UpdateDifficultyLevel();
-
-            // Mettre � jour la derni�re distance de mise � jour
-            lastUpdateDistance = distanceParcourue;
+            lastUpdateDistance += activeDifficulty.toutesLesNbMetres;
         }
-
 
         if ((player.position.z - lastPosPlayer) > dimPattern.x)
         {
@@ -229,7 +223,7 @@ public class CreateRealTimeRoad : MonoBehaviour
         if (TMP_Text_Meters != null)
         {
             // Formater l'affichage pour avoir deux chiffres pour les secondes et millisecondes
-            TMP_Text_Meters.text = (Mathf.Abs(distanceParcourue)).ToString("F2") + " m"; // -distanceParcourue car on se d�place dans les n�gatifs
+            TMP_Text_Meters.text = (Mathf.Abs(GlobalVariables.distanceParcourue)).ToString("F2") + " m";
         }
     }
 }

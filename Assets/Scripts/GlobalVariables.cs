@@ -1,0 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public static class GlobalVariables
+{
+    public static string bestRunFileName = "top_run_player";
+
+    public static string top_3_run_filename = "best_distances_player";
+
+    public static float distanceParcourue = 0.0f;
+}

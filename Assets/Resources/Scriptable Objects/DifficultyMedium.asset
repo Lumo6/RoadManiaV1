@@ -16,6 +16,8 @@ MonoBehaviour:
   offsetObstacle: 2
   probaGeneration: 95
   timeChrono: 0
-  selectedOption: 1
-  coefReductionOffset: 0
-  coefAugmentationProbaGenration: 0
+  evolutionDifficulte: 1
+  pourcentageReductionOffset: 5
+  pourcentageAugmentationProbaGenration: 5
+  toutesLesNbSecondes: 5
+  toutesLesNbMetres: 250

@@ -4,9 +4,11 @@ using UnityEngine.SceneManagement;
 
 public class CountTimer : MonoBehaviour
 {
+    public GameObject player;
+    public TMP_Text countdownText;
+
     private float startTime = MenuManager.activeDifficulty.timeChrono;
     private float currentTime;
-    public TMP_Text countdownText;
     private bool isChronoMode;
 
     void Start()
@@ -45,7 +47,13 @@ public class CountTimer : MonoBehaviour
             countdownText.text = string.Format("{0:00}:{1:00}:{2:000}", minutes, seconds, milliseconds);
         }
 
-        if (isChronoMode && currentTime <= 0) {
+        if (isChronoMode && currentTime <= 0)
+        {
+            GhostData data = player.GetComponent<GhostRecorder>().GetRecordedData();
+
+            SaverManager saver = SaverManager.Instance;
+            saver.SaveBestDistances(GlobalVariables.distanceParcourue, data, GlobalVariables.top_3_run_filename);
+
             SceneManager.LoadScene("SceneLoser");
         }
     }
