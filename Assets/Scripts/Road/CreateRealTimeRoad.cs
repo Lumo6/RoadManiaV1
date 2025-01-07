@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+
 
 public class CreateRealTimeRoad : MonoBehaviour
 {
@@ -16,36 +16,36 @@ public class CreateRealTimeRoad : MonoBehaviour
     [Range(10, 30)]
     public int nbPatternsInitRoad = 20;
     public Transform posInitPattern;
-    [Tooltip("Distance au player au-delà de laquelle un pattern procédural est supprimé")]
+    [Tooltip("Distance au player au-delï¿½ de laquelle un pattern procï¿½dural est supprimï¿½")]
     public Transform trsfParentRoad = null;
     private Vector3 lastPosPattern;
 
     [Header("Obstacles")]
-    [Tooltip("La probabilité d'avoir un obstacle lorsqu'un pattern de route est créé")]
+    [Tooltip("La probabilitï¿½ d'avoir un obstacle lorsqu'un pattern de route est crï¿½ï¿½")]
     [Range(0.0f, 1.0f)]
     public float probaAllObst;
 
     [System.Serializable]
     public class ProbaObst
     {
-        public float proba; // Probabilité d'avoir cet objet
+        public float proba; // Probabilitï¿½ d'avoir cet objet
         public GameObject obst; // L'objet obstacle
     }
 
-    [Header("Paramètres des obstacles")]
-    [Tooltip("Liste des obstacles avec leur probabilité d'apparition associé")]
+    [Header("Paramï¿½tres des obstacles")]
+    [Tooltip("Liste des obstacles avec leur probabilitï¿½ d'apparition associï¿½")]
     public ProbaObst[] probaObsts;
     private float totalProbaObst;
     private Vector3 dimObst;
 
     [Space(20)]
     [Header("Difficulty")]
-    [Tooltip("La difficulté (d'avoir un obstacle) augmente toutes les ... secondes")]
+    [Tooltip("La difficultï¿½ (d'avoir un obstacle) augmente toutes les ... secondes")]
     [Range(5, 30)]
     public float increasePeriod = 10.0f;
 
-    [Header("Outils de déboguage")]
-    [Tooltip("Booléan empêchant la génération d'obstacles")]
+    [Header("Outils de dï¿½boguage")]
+    [Tooltip("Boolï¿½an empï¿½chant la gï¿½nï¿½ration d'obstacles")]
     public bool isDebug = false;
 
     private const float COEFF_INCREASE_DIFF = 1.05f;
@@ -59,10 +59,10 @@ public class CreateRealTimeRoad : MonoBehaviour
     // Liste des obstacles
     private List<GameObject> obstacleList = new List<GameObject>();
 
-    // Difficulté du niveau
+    // Difficultï¿½ du niveau
     private Difficulty activeDifficulty;
 
-    // UI : Texte pour affichage des mètres parcourus
+    // UI : Texte pour affichage des mï¿½tres parcourus
     public TMP_Text TMP_Text_Meters;
 
     // Variables pour la distance
@@ -100,11 +100,11 @@ public class CreateRealTimeRoad : MonoBehaviour
 
         if (activeDifficulty != null && activeDifficulty.GetOptionsEvolutionDifficulte() == Difficulty.OptionsEvolutionDifficulte.Temps)
         {
-            Debug.Log("Mode d'évolution des paramètres de difficultés : Temps");
+            Debug.Log("Mode d'ï¿½volution des paramï¿½tres de difficultï¿½s : Temps");
             InvokeRepeating(nameof(UpdateDifficultyLevel), activeDifficulty.toutesLesNbSecondes, activeDifficulty.toutesLesNbSecondes);
         } else
         {
-            Debug.Log("Mode d'évolution des paramètres de difficultés : Mètres");
+            Debug.Log("Mode d'ï¿½volution des paramï¿½tres de difficultï¿½s : Mï¿½tres");
         }
 
         coeff = 0.0f;
@@ -115,7 +115,7 @@ public class CreateRealTimeRoad : MonoBehaviour
         // Calcul de la distance parcourue
         GlobalVariables.distanceParcourue = player.position.z - startPlayerPosition;
 
-        // Vérifier si la difficulté doit être mise à jour (en fonction de la distance)
+        // Vï¿½rifier si la difficultï¿½ doit ï¿½tre mise ï¿½ jour (en fonction de la distance)
         if (activeDifficulty.GetOptionsEvolutionDifficulte() == Difficulty.OptionsEvolutionDifficulte.Distance
             && GlobalVariables.distanceParcourue >= lastUpdateDistance + activeDifficulty.toutesLesNbMetres)
         {
@@ -161,7 +161,8 @@ public class CreateRealTimeRoad : MonoBehaviour
                             {
                                 float minDistance = Mathf.Max(obstacleRenderer.bounds.size.x, obstacleRenderer.bounds.size.z) * 2;
                                 int generateNumberForKnowIfGenerationOfObstaclesIsPossibleForDifficultyLevel = Random.Range(1, 101);
-                                if (Vector3.Distance(obstaclePosition, o.transform.position) <= minDistance * activeDifficulty.offsetObstacle || generateNumberForKnowIfGenerationOfObstaclesIsPossibleForDifficultyLevel >= activeDifficulty.probaGeneration)
+                                if (Vector3.Distance(obstaclePosition, o.transform.position) <= minDistance * activeDifficulty.offsetObstacle ||
+                                    generateNumberForKnowIfGenerationOfObstaclesIsPossibleForDifficultyLevel >= activeDifficulty.probaGeneration)
                                 {
                                     isAllowed = false;
                                     break;
@@ -171,14 +172,15 @@ public class CreateRealTimeRoad : MonoBehaviour
 
                         if (isAllowed)
                         {
-                            // Instancier l'obstacle à la position calculée
+                            // Instantiate the obstacle and attach appropriate script
                             GameObject obstacle = Instantiate(obstacleData.obst, obstaclePosition, obstacleData.obst.transform.rotation, newPattern.transform);
                             obstacleList.Add(obstacle);
                         }
                         break;
                     }
                 }
-            } 
+            }
+
 
             if (ir.roads.Count > 50)
             {
@@ -201,8 +203,8 @@ public class CreateRealTimeRoad : MonoBehaviour
         activeDifficulty.offsetObstacle *= 1 - (activeDifficulty.pourcentageReductionOffset/100);
         activeDifficulty.probaGeneration *= 1 + (activeDifficulty.pourcentageAugmentationProbaGenration / 100);
 
-        Debug.Log($"Mise à jour des paramètres de difficulté : Offset : {activeDifficulty.offsetObstacle}, Proba : {activeDifficulty.probaGeneration} ");
-    } 
+        Debug.Log($"Mise ï¿½ jour des paramï¿½tres de difficultï¿½ : Offset : {activeDifficulty.offsetObstacle}, Proba : {activeDifficulty.probaGeneration} ");
+    }
 
     private Renderer GetRenderer(GameObject obj)
     {
@@ -241,6 +243,7 @@ public class BuildInitRoad
     {
         GameObject obj = GameObject.Instantiate(pattern, pos, Quaternion.Euler(0, 90, 0), trsfParentRoad);
         obj.name = name;
+        obj.layer = LayerMask.NameToLayer("Road");
         pos += Vector3.forward * pattern.GetComponent<Renderer>().bounds.size.x;
         roads.Add(obj);
         return obj;

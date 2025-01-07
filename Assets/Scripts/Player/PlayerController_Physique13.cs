@@ -12,7 +12,7 @@ public class PlayerController_Physique13 : MonoBehaviour
     public float maxSpeed;
     public float turnspeed;
     [Range(3, 10)]
-    [Tooltip("Temps en seconde (float) pour passer de la vittesse MIN à MAX")]
+    [Tooltip("Temps en seconde (float) pour passer de la vittesse MIN ï¿½ MAX")]
     public float timeFromMinToMax = 5.0f;
     public AnimationCurve accelerationSpeedCURVE;
     private float accel_x = 0;
@@ -35,14 +35,13 @@ public class PlayerController_Physique13 : MonoBehaviour
     {
         minSpeed = GameManager.Instance.minSpeed;
         maxSpeed = GameManager.Instance.maxSpeed;
-        Debug.Log($"PlayerController initialized: minSpeed = {minSpeed}, maxSpeed = {maxSpeed}");
         rb = player.GetComponent<Rigidbody>();
         rb.isKinematic = false;
         speed = minSpeed;
         amplitudeSpeed = maxSpeed - minSpeed;
     }
-    // Version / Décélération automatique / Utiliser courbe d'animation
-    // Ne pas pouvoir dépasser une VitesseMax ni descendre en dessous d’une VitesseMin
+    // Version / Dï¿½cï¿½lï¿½ration automatique / Utiliser courbe d'animation
+    // Ne pas pouvoir dï¿½passer une VitesseMax ni descendre en dessous dï¿½une VitesseMin
     void Update()
     {
         elapsedTime += Time.deltaTime;
@@ -86,7 +85,7 @@ public class PlayerController_Physique13 : MonoBehaviour
         speed = Mathf.Clamp(speed, minSpeed, maxSpeed);
 
         bCheckRotaY = Mathf.Abs(player.transform.rotation.y) > 1.0f ? false : true;
-        
+
 
         if(player.transform.rotation.x < -45)
         {
@@ -116,14 +115,14 @@ public class PlayerController_Physique13 : MonoBehaviour
         {
             GameManager.Instance.Bonus(5f, 10f);
             SoundManager.Instance.PlayBonusSound();
-            Debug.Log("Bonus activé !");
+            Debug.Log("Bonus activï¿½ !");
             Destroy(other.gameObject);
         }
         else if (other.CompareTag("Malus"))
         {
             GameManager.Instance.Malus(5f, 10f);
             SoundManager.Instance.PlayMalusSound();
-            Debug.Log("Malus activé !");
+            Debug.Log("Malus activï¿½ !");
             Destroy(other.gameObject);
         }
     }
