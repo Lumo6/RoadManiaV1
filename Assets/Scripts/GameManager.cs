@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,7 +12,10 @@ public class GameManager : MonoBehaviour
 
     public Canvas MalusVision; // Reference to the MalusVision canvas
     public Renderer carRenderer; // Reference to the car's renderer
-    public Collider carCollider; // Reference to the car's collider
+    public MeshCollider carCollider; // Reference to the car's collider
+    public GameObject car; // Reference to the car
+    private int originalLayer;
+    private Color originalColor;
 
     // Events for bonus and malus
     public UnityEvent<float> OnBonusGhost;
@@ -41,6 +45,9 @@ public class GameManager : MonoBehaviour
         // Subscribe methods to the events
         OnBonusGhost.AddListener(BonusGhost);
         OnMalusScreen.AddListener(MalusScreen);
+
+        originalLayer = car.layer;
+        originalColor = carRenderer.material.color;
     }
 
     public void MalusScreen(float duration)
@@ -50,6 +57,7 @@ public class GameManager : MonoBehaviour
             MalusVision.enabled = true;
         }
         StartCoroutine(RemoveEffectAfterTime(duration));
+        Debug.Log("la je suis dans malus");
     }
 
     private System.Collections.IEnumerator RemoveEffectAfterTime(float duration)
@@ -63,6 +71,7 @@ public class GameManager : MonoBehaviour
 
     public void BonusGhost(float duration)
     {
+        Debug.Log("Je suis dans le BonusGhost");
         if (carRenderer != null && carCollider != null)
         {
             StartCoroutine(ApplyGhostEffect(duration));
@@ -71,15 +80,26 @@ public class GameManager : MonoBehaviour
 
     private System.Collections.IEnumerator ApplyGhostEffect(float duration)
     {
-        // Make the car semi-transparent and disable collisions
-        Color originalColor = carRenderer.material.color;
-        carRenderer.material.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.5f);
-        carCollider.enabled = false;
+        SetLayerRecursively(car, LayerMask.NameToLayer("NoCollisionLayer"));
 
+        // Make the car semi-transparent
+        carRenderer.material.color = Color.blue;
+
+        // Wait for the duration
         yield return new WaitForSeconds(duration);
 
-        // Restore original state
+        SetLayerRecursively(car, LayerMask.NameToLayer("Default"));
+
+        // Restore original color
         carRenderer.material.color = originalColor;
-        carCollider.enabled = true;
+    }
+
+    private void SetLayerRecursively(GameObject obj, int newLayer)
+    {
+        obj.layer = newLayer;
+        foreach (Transform child in obj.transform)
+        {
+            SetLayerRecursively(child.gameObject, newLayer);
+        }
     }
 }

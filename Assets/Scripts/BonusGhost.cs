@@ -11,6 +11,7 @@ public class BonusGhost : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("Oui, j'ai été touché ya quoi maintenant");
             GameManager.Instance.OnBonusGhost.Invoke(duration);
             Destroy(gameObject);
         }

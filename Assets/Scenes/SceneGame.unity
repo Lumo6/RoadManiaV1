@@ -260,8 +260,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa1ab23ce09e0664f8b296fbae8db252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bonusSound: {fileID: 0}
-  malusSound: {fileID: 0}
+  bonusGhostSound: {fileID: 0}
+  malusScreenSound: {fileID: 0}
+  OnBonusGhost:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMalusScreen:
+    m_PersistentCalls:
+      m_Calls: []
   collisionSound: {fileID: 0}
 --- !u!1 &351731798
 GameObject:
@@ -312,6 +318,7 @@ MonoBehaviour:
   MalusVision: {fileID: 2131850807}
   carRenderer: {fileID: 1478325927}
   carCollider: {fileID: 1478325926}
+  car: {fileID: 2108729276}
   OnBonusGhost:
     m_PersistentCalls:
       m_Calls: []
@@ -1422,16 +1429,32 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 135936, guid: 70bf34f6c25c948458f254e87188b00b, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 135936, guid: 70bf34f6c25c948458f254e87188b00b, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 151112, guid: 70bf34f6c25c948458f254e87188b00b, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 151112, guid: 70bf34f6c25c948458f254e87188b00b, type: 3}
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 156822, guid: 70bf34f6c25c948458f254e87188b00b, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 156822, guid: 70bf34f6c25c948458f254e87188b00b, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 165870, guid: 70bf34f6c25c948458f254e87188b00b, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 165870, guid: 70bf34f6c25c948458f254e87188b00b, type: 3}
       propertyPath: m_TagString
@@ -1440,6 +1463,10 @@ PrefabInstance:
     - target: {fileID: 178130, guid: 70bf34f6c25c948458f254e87188b00b, type: 3}
       propertyPath: m_Name
       value: Vehicle
+      objectReference: {fileID: 0}
+    - target: {fileID: 178130, guid: 70bf34f6c25c948458f254e87188b00b, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 178130, guid: 70bf34f6c25c948458f254e87188b00b, type: 3}
       propertyPath: m_TagString
@@ -1486,8 +1513,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2801325797856607763, guid: 70bf34f6c25c948458f254e87188b00b, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2801325797856607763, guid: 70bf34f6c25c948458f254e87188b00b, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3313442307395238052, guid: 70bf34f6c25c948458f254e87188b00b, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 3313442307395238052, guid: 70bf34f6c25c948458f254e87188b00b, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354826896566270354, guid: 70bf34f6c25c948458f254e87188b00b, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1828,7 +1871,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2032301595}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Road
   m_TagString: Untagged
   m_Icon: {fileID: 0}
