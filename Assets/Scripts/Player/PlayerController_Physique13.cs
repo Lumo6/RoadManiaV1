@@ -107,23 +107,5 @@ public class PlayerController_Physique13 : MonoBehaviour
         {
             rb.MoveRotation(rb.rotation * rotation);
         }
-
-    }
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Bonus"))
-        {
-            GameManager.Instance.Bonus(5f, 10f);
-            SoundManager.Instance.PlayBonusSound();
-            Debug.Log("Bonus activ� !");
-            Destroy(other.gameObject);
-        }
-        else if (other.CompareTag("Malus"))
-        {
-            GameManager.Instance.Malus(5f, 10f);
-            SoundManager.Instance.PlayMalusSound();
-            Debug.Log("Malus activ� !");
-            Destroy(other.gameObject);
-        }
     }
 }
