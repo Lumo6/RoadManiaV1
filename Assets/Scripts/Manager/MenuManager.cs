@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
@@ -7,33 +8,59 @@ public class MenuManager : MonoBehaviour
 
     public void PlayGame(int difficulty)
     {
-        // Les différents niveaux de difficultés
+        GlobalVariables.difficulty = difficulty;
+
+        Transform sliderTransform = transform.parent.Find("OptionsMenu/Slider");
+
+        if (sliderTransform  != null)
+        {
+            GameObject slider = sliderTransform.gameObject;
+            Debug.Log("Slider trouvÃ© : " + slider.name);
+            GlobalVariables.soundLevel = slider.GetComponent<Slider>().value;
+        }
+        else
+        {
+            Debug.LogError("Slider introuvable !");
+            GlobalVariables.soundLevel = 0.5f;
+        }
+
+        // Les diffï¿½rents niveaux de difficultï¿½s
         Difficulty[] difficultyList = Resources.LoadAll<Difficulty>("Scriptable Objects");
 
         if (difficultyList.Length == 0)
         {
-            Debug.LogError("Aucune difficulté trouvée dans les ressources !");
+            Debug.LogError("Aucune difficultï¿½ trouvï¿½e dans les ressources !");
             return;
         }
 
         foreach (Difficulty obj in difficultyList)
         {
-            Debug.Log($"Difficulté trouvée : {obj.difficultyLevel}");
+            Debug.Log($"Difficultï¿½ trouvï¿½e : {obj.difficultyLevel}");
             if (difficulty == obj.difficultyLevel)
             {
                 activeDifficulty = obj;
-                Debug.Log($"Difficulté active définie : {activeDifficulty.difficultyLevel}");
+                Debug.Log($"Difficultï¿½ active dï¿½finie : {activeDifficulty.difficultyLevel}");
                 break;
             }
         }
 
         if (activeDifficulty == null)
         {
-            Debug.LogError($"Aucune difficulté ne correspond au niveau {difficulty} !");
+            Debug.LogError($"Aucune difficultï¿½ ne correspond au niveau {difficulty} !");
             return;
         }
 
         SceneManager.LoadScene("SceneGame");
+    }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void Retry()
+    {
+        PlayGame(GlobalVariables.difficulty);
     }
 
     public void QuitGame()

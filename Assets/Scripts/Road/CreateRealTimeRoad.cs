@@ -173,7 +173,7 @@ public class CreateRealTimeRoad : MonoBehaviour
                         if (isAllowed)
                         {
                             // Instantiate the obstacle and attach appropriate script
-                            GameObject obstacle = Instantiate(obstacleData.obst, obstaclePosition, obstacleData.obst.transform.rotation, newPattern.transform);
+                            GameObject obstacle = Instantiate(obstacleData.obst, obstaclePosition, obstacleData.obst.transform.rotation, GameObject.Find("Obstacles").transform);
                             obstacleList.Add(obstacle);
                         }
                         break;

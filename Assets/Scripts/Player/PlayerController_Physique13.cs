@@ -67,7 +67,6 @@ public class PlayerController_Physique13 : MonoBehaviour
         {
             SceneManager.LoadScene("SceneLoser");
         }
-
     }
     void FixedUpdate()
     {
@@ -85,7 +84,6 @@ public class PlayerController_Physique13 : MonoBehaviour
         speed = Mathf.Clamp(speed, minSpeed, maxSpeed);
 
         bCheckRotaY = Mathf.Abs(player.transform.rotation.y) > 1.0f ? false : true;
-
 
         if(player.transform.rotation.x < -45)
         {
@@ -106,6 +104,15 @@ public class PlayerController_Physique13 : MonoBehaviour
         else
         {
             rb.MoveRotation(rb.rotation * rotation);
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Obstacle"))
+        {
+            Debug.Log("je suis laaaa");
+            SoundManager.Instance.OnCollision.Invoke();
         }
     }
 }

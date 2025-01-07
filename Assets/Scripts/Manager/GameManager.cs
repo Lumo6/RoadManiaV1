@@ -9,8 +9,7 @@ public class GameManager : MonoBehaviour
     public float maxSpeed = 20f;
     public float minSpeed = 6f;
     public static GameObject bonusmalus;
-
-    public Canvas MalusVision; // Reference to the MalusVision canvas
+    public GameObject MalusVision; // Reference to the MalusVision canvas
     public Renderer carRenderer; // Reference to the car's renderer
     public MeshCollider carCollider; // Reference to the car's collider
     public GameObject car; // Reference to the car
@@ -54,10 +53,9 @@ public class GameManager : MonoBehaviour
     {
         if (MalusVision != null)
         {
-            MalusVision.enabled = true;
+            MalusVision.SetActive(true);
         }
         StartCoroutine(RemoveEffectAfterTime(duration));
-        Debug.Log("la je suis dans malus");
     }
 
     private System.Collections.IEnumerator RemoveEffectAfterTime(float duration)
@@ -65,13 +63,12 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(duration);
         if (MalusVision != null)
         {
-            MalusVision.enabled = false;
+            MalusVision.SetActive(false);
         }
     }
 
     public void BonusGhost(float duration)
     {
-        Debug.Log("Je suis dans le BonusGhost");
         if (carRenderer != null && carCollider != null)
         {
             StartCoroutine(ApplyGhostEffect(duration));
@@ -88,7 +85,7 @@ public class GameManager : MonoBehaviour
         // Wait for the duration
         yield return new WaitForSeconds(duration);
 
-        SetLayerRecursively(car, LayerMask.NameToLayer("Default"));
+        SetLayerRecursively(car, originalLayer);
 
         // Restore original color
         carRenderer.material.color = originalColor;

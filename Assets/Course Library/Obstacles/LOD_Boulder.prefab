@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6e18b21360db5d94caa08560934dd9ee, type: 3}
       propertyPath: m_TagString
-      value: MalusScreen
+      value: BonusMalus
       objectReference: {fileID: 0}
     - target: {fileID: 4742473837712756890, guid: 6e18b21360db5d94caa08560934dd9ee, type: 3}
       propertyPath: m_LODs.Array.data[0].screenRelativeHeight
@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a816a56ff6eb3644e9661af462e75e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 12
+  duration: 6
 --- !u!1 &4109156944646280921 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7331563837562731395, guid: 6e18b21360db5d94caa08560934dd9ee, type: 3}

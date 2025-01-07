@@ -9,4 +9,8 @@ public static class GlobalVariables
     public static string top_3_run_filename = "best_distances_player";
 
     public static float distanceParcourue = 0.0f;
+
+    public static int difficulty = 0;
+
+    public static float soundLevel = 0.0f;
 }

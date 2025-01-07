@@ -12,6 +12,7 @@ public class MalusScreen : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             GameManager.Instance.OnMalusScreen.Invoke(duration);
+            SoundManager.Instance.OnMalusScreen.Invoke();
             Destroy(gameObject);
         }
     }

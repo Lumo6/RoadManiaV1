@@ -3,7 +3,10 @@ guid: aa1ab23ce09e0664f8b296fbae8db252
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - bonusGhostSound: {fileID: 8300000, guid: f3940da15bf12584ab7b8df44430129d, type: 3}
+  - malusScreenSound: {fileID: 8300000, guid: ade14984f2b770e40bc89b7f920b7912, type: 3}
+  - collisionSound: {fileID: 8300000, guid: 973147f38a9be1e49bc4b7a3d35f345f, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -305,7 +305,7 @@ GameObject:
   - component: {fileID: 3121520830970235094}
   m_Layer: 0
   m_Name: LittleGhost_LP (1)
-  m_TagString: BonusGhost
+  m_TagString: BonusMalus
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

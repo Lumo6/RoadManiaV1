@@ -7,22 +7,24 @@ public class CountTimer : MonoBehaviour
     public GameObject player;
     public TMP_Text countdownText;
 
-    private float startTime = MenuManager.activeDifficulty.timeChrono;
+    private float startTime;
     private float currentTime;
     private bool isChronoMode;
 
     void Start()
     {
+        startTime = MenuManager.activeDifficulty.timeChrono;
+
         if (startTime == 0) // Pas en mode chrono
         {
             currentTime = 0.0f;
             isChronoMode = false;
-        } 
-        else 
+        }
+        else
         {
             currentTime = startTime;
             isChronoMode = true;
-        }  
+        }
     }
 
     void Update()
@@ -32,10 +34,10 @@ public class CountTimer : MonoBehaviour
             currentTime -= Time.deltaTime;
             currentTime = Mathf.Clamp(currentTime, 0.0f, startTime);
         }
-        else { 
+        else {
             currentTime += Time.deltaTime;
         }
-       
+
         if (countdownText != null)
         {
             // Calculer les minutes, secondes et millisecondes
