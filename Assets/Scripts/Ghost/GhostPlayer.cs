@@ -18,12 +18,12 @@ public class GhostPlayer : MonoBehaviour
 
             if (ghostData == null)
             {
-                Debug.LogWarning("Aucun temps enregistr� pour le niveau de difficult� 3 !");
+                Debug.LogWarning("Aucun temps enregistré pour le niveau de difficulté 3 !");
                 Destroy(gameObject);
             }
             else
             {
-                Debug.Log("Donn�es fant�mes charg�es avec succ�s !");
+                Debug.Log("Données fantômes chargées avec succès !");
             }
 
             Collider[] colliders = GetComponentsInChildren<Collider>();
@@ -31,11 +31,11 @@ public class GhostPlayer : MonoBehaviour
             {
                 col.enabled = false;
             }
-            Debug.Log("Tous les colliders ont �t� supprim�s du Ghost.");
+            Debug.Log("Tous les colliders ont été supprimés du Ghost.");
         }
         else
         {
-            Debug.Log("Difficult� diff�rente, pas de donn�es fant�mes charg�es.");
+            Debug.Log("Difficulté différente, pas de données fantômes chargées.");
             Destroy(gameObject);
         }
     }
@@ -54,8 +54,8 @@ public class GhostPlayer : MonoBehaviour
         if (currentIndex < ghostData.timestamps.Count - 1)
         {
             /* Interpolation entre deux positions
-               (playbackTime - ghostData.timestamps[currentIndex]) = dur�e depuis le dernier enregistrement du fant�me jusqu'au moment actuel
-               ghostData.timestamps[currentIndex + 1] - ghostData.timestamps[currentIndex] = dur�e totale l'enregistrement de la position suivante et la position actuelle
+               (playbackTime - ghostData.timestamps[currentIndex]) = durée depuis le dernier enregistrement du fantôme jusqu'au moment actuel
+               ghostData.timestamps[currentIndex + 1] - ghostData.timestamps[currentIndex] = durée totale l'enregistrement de la position suivante et la position actuelle
              */
             float t = (playbackTime - ghostData.timestamps[currentIndex]) / (ghostData.timestamps[currentIndex + 1] - ghostData.timestamps[currentIndex]);
 

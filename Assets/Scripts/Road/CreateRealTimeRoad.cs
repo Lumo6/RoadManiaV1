@@ -16,12 +16,12 @@ public class CreateRealTimeRoad : MonoBehaviour
     [Range(10, 30)]
     public int nbPatternsInitRoad = 20;
     public Transform posInitPattern;
-    [Tooltip("Distance au player au-del� de laquelle un pattern proc�dural est supprim�")]
+    [Tooltip("Distance au player au-delà de laquelle un pattern procédural est supprimé")]
     public Transform trsfParentRoad = null;
     private Vector3 lastPosPattern;
 
     [Header("Obstacles")]
-    [Tooltip("La probabilit� d'avoir un obstacle lorsqu'un pattern de route est cr��")]
+    [Tooltip("La probabilité d'avoir un obstacle lorsqu'un pattern de route est créé")]
     [Range(0.0f, 1.0f)]
     public float probaAllObst;
 
@@ -32,20 +32,20 @@ public class CreateRealTimeRoad : MonoBehaviour
         public GameObject obst; // L'objet obstacle
     }
 
-    [Header("Param�tres des obstacles")]
-    [Tooltip("Liste des obstacles avec leur probabilit� d'apparition associ�")]
+    [Header("Paramètres des obstacles")]
+    [Tooltip("Liste des obstacles avec leur probabilité d'apparition associé")]
     public ProbaObst[] probaObsts;
     private float totalProbaObst;
     private Vector3 dimObst;
 
     [Space(20)]
     [Header("Difficulty")]
-    [Tooltip("La difficult� (d'avoir un obstacle) augmente toutes les ... secondes")]
+    [Tooltip("La difficulté (d'avoir un obstacle) augmente toutes les ... secondes")]
     [Range(5, 30)]
     public float increasePeriod = 10.0f;
 
-    [Header("Outils de d�boguage")]
-    [Tooltip("Bool�an emp�chant la g�n�ration d'obstacles")]
+    [Header("Outils de déboguage")]
+    [Tooltip("Booléan empêchant la génération d'obstacles")]
     public bool isDebug = false;
 
     private const float COEFF_INCREASE_DIFF = 1.05f;
@@ -59,10 +59,10 @@ public class CreateRealTimeRoad : MonoBehaviour
     // Liste des obstacles
     private List<GameObject> obstacleList = new List<GameObject>();
 
-    // Difficult� du niveau
+    // Difficulté du niveau
     private Difficulty activeDifficulty;
 
-    // UI : Texte pour affichage des m�tres parcourus
+    // UI : Texte pour affichage des mètres parcourus
     public TMP_Text TMP_Text_Meters;
 
     // Variables pour la distance
@@ -100,11 +100,11 @@ public class CreateRealTimeRoad : MonoBehaviour
 
         if (activeDifficulty != null && activeDifficulty.GetOptionsEvolutionDifficulte() == Difficulty.OptionsEvolutionDifficulte.Temps)
         {
-            Debug.Log("Mode d'�volution des param�tres de difficult�s : Temps");
+            Debug.Log("Mode d'évolution des paramètres de difficultés : Temps");
             InvokeRepeating(nameof(UpdateDifficultyLevel), activeDifficulty.toutesLesNbSecondes, activeDifficulty.toutesLesNbSecondes);
         } else
         {
-            Debug.Log("Mode d'�volution des param�tres de difficult�s : M�tres");
+            Debug.Log("Mode d'évolution des paramètres de difficultés : Mètres");
         }
 
         coeff = 0.0f;
@@ -115,7 +115,7 @@ public class CreateRealTimeRoad : MonoBehaviour
         // Calcul de la distance parcourue
         GlobalVariables.distanceParcourue = player.position.z - startPlayerPosition;
 
-        // V�rifier si la difficult� doit �tre mise � jour (en fonction de la distance)
+        // Vérifier si la difficulté doit être mise à jour (en fonction de la distance)
         if (activeDifficulty.GetOptionsEvolutionDifficulte() == Difficulty.OptionsEvolutionDifficulte.Distance
             && GlobalVariables.distanceParcourue >= lastUpdateDistance + activeDifficulty.toutesLesNbMetres)
         {
@@ -203,7 +203,7 @@ public class CreateRealTimeRoad : MonoBehaviour
         activeDifficulty.offsetObstacle *= 1 - (activeDifficulty.pourcentageReductionOffset/100);
         activeDifficulty.probaGeneration *= 1 + (activeDifficulty.pourcentageAugmentationProbaGenration / 100);
 
-        Debug.Log($"Mise � jour des param�tres de difficult� : Offset : {activeDifficulty.offsetObstacle}, Proba : {activeDifficulty.probaGeneration} ");
+        Debug.Log($"Mise à jour des paramètres de difficulté : Offset : {activeDifficulty.offsetObstacle}, Proba : {activeDifficulty.probaGeneration} ");
     }
 
     private Renderer GetRenderer(GameObject obj)

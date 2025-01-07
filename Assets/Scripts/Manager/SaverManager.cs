@@ -26,14 +26,14 @@ public class SaverManager
 
     private SaverManager() { }
 
-    // Enregistrement de la trajectoire du fantôme
+    // Enregistrement de la trajectoire du fantÃ´me
     public void SaveGhostData(GhostData ghostData, string fileName)
     {
         string json = JsonUtility.ToJson(ghostData);
         File.WriteAllText(Application.persistentDataPath + "/" + fileName + ".json", json);
     }
 
-    // Chargement de la trajectoire du fantôme
+    // Chargement de la trajectoire du fantÃ´me
     public GhostData LoadGhostData(string fileName)
     {
         string filePath = Application.persistentDataPath + "/" + fileName + ".json";
@@ -61,7 +61,7 @@ public class SaverManager
         else
         {
             bestDistancesData.bestDistances.Add(distance);
-            bestDistancesData.bestDistances.Sort((a, b) => b.CompareTo(a)); // Tri décroissant
+            bestDistancesData.bestDistances.Sort((a, b) => b.CompareTo(a)); // Tri dÃ©croissant
 
             // Garde uniquement les 3 meilleurs scores
             if (bestDistancesData.bestDistances.Count > 3)
@@ -69,7 +69,7 @@ public class SaverManager
                 bestDistancesData.bestDistances.RemoveAt(3);
             }
 
-            // Sauvegarde le fantôme uniquement si la distance est le meilleur score
+            // Sauvegarde le fantÃ´me uniquement si la distance est le meilleur score
             if (bestDistancesData.bestDistances[0] == distance)
             {
                 SaveGhostData(data, GlobalVariables.bestRunFileName);

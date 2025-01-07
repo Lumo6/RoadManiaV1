@@ -24,29 +24,29 @@ public class MenuManager : MonoBehaviour
             GlobalVariables.soundLevel = 0.5f;
         }
 
-        // Les diff�rents niveaux de difficult�s
+        // Les différents niveaux de difficultés
         Difficulty[] difficultyList = Resources.LoadAll<Difficulty>("Scriptable Objects");
 
         if (difficultyList.Length == 0)
         {
-            Debug.LogError("Aucune difficult� trouv�e dans les ressources !");
+            Debug.LogError("Aucune difficulté trouvée dans les ressources !");
             return;
         }
 
         foreach (Difficulty obj in difficultyList)
         {
-            Debug.Log($"Difficult� trouv�e : {obj.difficultyLevel}");
+            Debug.Log($"Difficulté trouvée : {obj.difficultyLevel}");
             if (difficulty == obj.difficultyLevel)
             {
                 activeDifficulty = obj;
-                Debug.Log($"Difficult� active d�finie : {activeDifficulty.difficultyLevel}");
+                Debug.Log($"Difficulté active définie : {activeDifficulty.difficultyLevel}");
                 break;
             }
         }
 
         if (activeDifficulty == null)
         {
-            Debug.LogError($"Aucune difficult� ne correspond au niveau {difficulty} !");
+            Debug.LogError($"Aucune difficulté ne correspond au niveau {difficulty} !");
             return;
         }
 

@@ -10,7 +10,7 @@ public class PlayerController_Physique13 : MonoBehaviour
     private float maxSpeed;
     public float turnspeed;
     [Range(3, 10)]
-    [Tooltip("Temps en seconde (float) pour passer de la vittesse MIN � MAX")]
+    [Tooltip("Temps en seconde (float) pour passer de la vitesse MIN à MAX")]
     public float timeFromMinToMax = 5.0f;
     public AnimationCurve accelerationSpeedCURVE;
     private float accel_x = 0;
@@ -38,8 +38,7 @@ public class PlayerController_Physique13 : MonoBehaviour
         speed = minSpeed;
         amplitudeSpeed = maxSpeed - minSpeed;
     }
-    // Version / D�c�l�ration automatique / Utiliser courbe d'animation
-    // Ne pas pouvoir d�passer une VitesseMax ni descendre en dessous d�une VitesseMin
+
     void Update()
     {
         elapsedTime += Time.deltaTime;
@@ -109,7 +108,6 @@ public class PlayerController_Physique13 : MonoBehaviour
     {
         if (other.CompareTag("Obstacle"))
         {
-            Debug.Log("je suis laaaa");
             SoundManager.Instance.OnCollision.Invoke();
         }
     }

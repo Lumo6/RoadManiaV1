@@ -9,41 +9,41 @@ public class Difficulty : ScriptableObject
         Distance
     }
 
-    [Header("Paramètres initials")]
+    [Header("ParamÃ¨tres initials")]
 
-    [Tooltip("Niveau de difficulté")]
-    public int difficultyLevel; // Niveau de difficulté (0 : Facile, 1 : Normal, 2 : Difficile, 3 : Chrono)
+    [Tooltip("Niveau de difficultÃ©")]
+    public int difficultyLevel; // Niveau de difficultÃ© (0 : Facile, 1 : Normal, 2 : Difficile, 3 : Chrono)
 
     [Tooltip("Espace entres les obstacles")]
     public float offsetObstacle;
 
-    [Tooltip("Probabilité d'apparition des obstacles")]
+    [Tooltip("ProbabilitÃ© d'apparition des obstacles")]
     public float probaGeneration;
 
-    [Tooltip("Décompte pour mode chrono")]
+    [Tooltip("DÃ©compte pour mode chrono")]
     public float timeChrono;
 
-    [Header("Paramètres d'évolutions")]
+    [Header("ParamÃ¨tres d'Ã©volutions")]
 
     [SerializeField]
     private OptionsEvolutionDifficulte evolutionDifficulte;
 
-    [Tooltip("Evolution de la difficulté en fonction de :")]
+    [Tooltip("Evolution de la difficultÃ© en fonction de :")]
     public OptionsEvolutionDifficulte EvolutionDifficulte => evolutionDifficulte;
 
-    [Tooltip("Pourcentag de réduction d'espacements entre les obstacles")]
+    [Tooltip("Pourcentag de rÃ©duction d'espacements entre les obstacles")]
     public float pourcentageReductionOffset;
 
-    [Tooltip("Pourcentag d'augmentation de la probabilité d'apparition des obstacles")]
+    [Tooltip("Pourcentage d'augmentation de la probabilitÃ© d'apparition des obstacles")]
     public float pourcentageAugmentationProbaGenration;
 
     public OptionsEvolutionDifficulte GetOptionsEvolutionDifficulte() { return evolutionDifficulte; }
 
     [SerializeField]
-    [Tooltip("Paramètre en secondes (utilisé si Temps est sélectionné).")]
+    [Tooltip("ParamÃ©tre en secondes (utilisÃ© si Temps est sÃ©lectionnÃ©).")]
     public float toutesLesNbSecondes;
 
     [SerializeField]
-    [Tooltip("Paramètre en mètres (utilisé si Distance est sélectionné).")]
+    [Tooltip("ParamÃ©tre en mÃ©tres (utilisÃ© si Distance est sÃ©lectionnÃ©).")]
     public float toutesLesNbMetres;
 }

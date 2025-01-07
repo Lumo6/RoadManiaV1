@@ -12,10 +12,10 @@ public class GhostRecorder : MonoBehaviour
     {
         if (MenuManager.activeDifficulty.difficultyLevel != 3)
         {
-            this.enabled = false;           
+            this.enabled = false;
         } else
         {
-            Debug.Log("Début de l'enregistrement");
+            Debug.Log("DÃ©but de l'enregistrement");
         }
 
         startTime = Time.time;
@@ -28,7 +28,7 @@ public class GhostRecorder : MonoBehaviour
         ghostData.rotations.Add(carTransform.rotation);
         ghostData.timestamps.Add(Time.time - startTime);
 
-        Debug.Log("Nouvelle position enregistrée");
+        Debug.Log("Nouvelle position enregistrÃ©e");
     }
 
     public GhostData GetRecordedData()

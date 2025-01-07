@@ -7,16 +7,16 @@ public class VirtualCameraSwitcher : MonoBehaviour
 
     void Start()
     {
-        // Activer la caméra 1 par défaut
+        // Activer la camÃ©ra 1 par dÃ©faut
         SetActiveCamera(virtualCamera1);
     }
 
     void Update()
     {
-        // Vérifier si la touche C est pressée
+        // VÃ©rifier si la touche C est pressÃ©e
         if (Input.GetKeyDown(KeyCode.C))
         {
-            // Basculer en fonction de la priorité actuelle
+            // Basculer en fonction de la prioritÃ© actuelle
             if (virtualCamera1.Priority > virtualCamera2.Priority)
             {
                 SetActiveCamera(virtualCamera2);
@@ -30,7 +30,7 @@ public class VirtualCameraSwitcher : MonoBehaviour
 
     void SetActiveCamera(CinemachineVirtualCamera activeCamera)
     {
-        // Réglez les priorités pour activer la caméra souhaitée
+        // RÃ©glez les prioritÃ©s pour activer la camÃ©ra souhaitÃ©e
         virtualCamera1.Priority = (activeCamera == virtualCamera1) ? 10 : 0;
         virtualCamera2.Priority = (activeCamera == virtualCamera2) ? 10 : 0;
     }
