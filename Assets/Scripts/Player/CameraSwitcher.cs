@@ -1,9 +1,18 @@
 using UnityEngine;
 using Cinemachine;
+
+/// <summary>
+/// Classe VirtualCameraSwitcher
+/// <para>
+/// Classe permettant de basculer entre deux caméras virtuelles en fonction de la priorité.
+/// La caméra active est déterminée par la priorité de chaque caméra.
+/// </para>
+/// </summary>
 public class VirtualCameraSwitcher : MonoBehaviour
 {
-    public CinemachineVirtualCamera virtualCamera1;
-    public CinemachineVirtualCamera virtualCamera2;
+    public CinemachineVirtualCamera virtualCamera1; // Référence à la première caméra virtuelle.
+
+    public CinemachineVirtualCamera virtualCamera2; // Référence à la deuxième caméra virtuelle.
 
     void Start()
     {
@@ -28,6 +37,11 @@ public class VirtualCameraSwitcher : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Définit la caméra active en fonction de la caméra passée en paramètre.
+    /// Ajuste la priorité des caméras pour activer celle souhaitée.
+    /// </summary>
+    /// <param name="activeCamera">La caméra virtuelle à activer.</param>
     void SetActiveCamera(CinemachineVirtualCamera activeCamera)
     {
         // Réglez les priorités pour activer la caméra souhaitée

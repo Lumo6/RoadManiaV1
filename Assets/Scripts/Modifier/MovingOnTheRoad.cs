@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe MovingObstacle
+/// <para>
+/// Classe représentant un obstacle mobile qui se déplace aléatoirement sur la largeur d'une route.
+/// </para>
+/// </summary>
 public class MovingObstacle : MonoBehaviour
 {
     private const float VITESSE_MIN = 5;

@@ -1,22 +1,37 @@
 using UnityEngine;
 
+/// <summary>
+/// Classe WheelController
+/// <para>
+/// Classe qui gère la rotation, la direction et les effets de freinage des roues du véhicule.
+/// Elle applique la rotation des roues, la direction des roues avant et les effets de freinage.
+/// </para>
+/// </summary>
 public class WheelController : MonoBehaviour
 {
-    public GameObject frontLeftWheel;
-    public GameObject frontRightWheel;
-    public GameObject rearLeftWheel;
-    public GameObject rearRightWheel;
+    public GameObject frontLeftWheel; // Référence à la roue avant gauche du véhicule.
 
-    public Rigidbody rb;
+    public GameObject frontRightWheel; // Référence à la roue avant droite du véhicule.
 
-    public ParticleSystem brakeParticlesFrontLeft;
-    public ParticleSystem brakeParticlesFrontRight;
-    public ParticleSystem brakeParticlesRearLeft;
-    public ParticleSystem brakeParticlesRearRight;
+    public GameObject rearLeftWheel; // Référence à la roue arrière gauche du véhicule.
 
-    public AudioClip brakeSound;
-    public AudioSource sourceSound;
+    public GameObject rearRightWheel; // Référence à la roue arrière droite du véhicule.
 
+    public Rigidbody rb; // Le Rigidbody du véhicule pour obtenir la vitesse.
+
+    public ParticleSystem brakeParticlesFrontLeft; // Système de particules pour les effets de freinage des roues avant gauche.
+
+    public ParticleSystem brakeParticlesFrontRight; // Système de particules pour les effets de freinage des roues avant droite.
+
+    public ParticleSystem brakeParticlesRearLeft; // Système de particules pour les effets de freinage des roues arrière gauche.
+
+    public ParticleSystem brakeParticlesRearRight; // Système de particules pour les effets de freinage des roues arrière droite.
+
+    public AudioClip brakeSound; // Clip audio pour le son de freinage.
+
+    public AudioSource sourceSound; // Source audio utilisée pour jouer les sons de freinage.
+
+    // Tailles des 4 roues
     private float frontLeftRadius;
     private float frontRightRadius;
     private float rearLeftRadius;
@@ -24,6 +39,7 @@ public class WheelController : MonoBehaviour
 
     void Awake()
     {
+        // Mise a jour du niveau de volume définie dans les options dans le menu
         sourceSound.volume = GlobalVariables.soundLevel;
 
         // Calculer les rayons des roues dynamiquement
@@ -35,25 +51,32 @@ public class WheelController : MonoBehaviour
 
     void Update()
     {
+        // Vitesse de la voiture
         float speed = rb.velocity.magnitude;
 
         // Appliquer la rotation des roues
         RotateWheels(speed);
 
-        // Tourner les roues avant
+        // Tourner les roues avant en fonction de l'entrée horizontale
         float steerInput = Input.GetAxis("Horizontal");
         SteerWheels(steerInput);
 
-        // Vérifier si le véhicule freine
+        // Vérifier si le véhicule est en train de freiner
         bool isBraking = Input.GetKey(KeyCode.S);
         ApplyBrakeEffects(isBraking);
     }
 
+    /// <summary>
+    /// Calcule le rayon d'une roue à partir de son composant MeshRenderer.
+    /// </summary>
+    /// <param name="wheel">La roue dont on veut déterminer le rayon.</param>
+    /// <returns>Le rayon de la roue.</returns>
     float GetWheelRadius(GameObject wheel)
     {
         MeshRenderer renderer = wheel.GetComponent<MeshRenderer>();
         if (renderer != null)
         {
+            // taille de la rroue
             return renderer.bounds.extents.y;
         }
 
@@ -61,6 +84,10 @@ public class WheelController : MonoBehaviour
         return 0.33f; // Valeur par défaut si aucun composant valide n'est trouvé
     }
 
+    /// <summary>
+    /// Applique la rotation des roues en fonction de la vitesse du véhicule.
+    /// </summary>
+    /// <param name="speed">La vitesse du véhicule pour déterminer la rotation des roues.</param>
     void RotateWheels(float speed)
     {
         // Calculer la vitesse angulaire (omega) pour chaque roue
@@ -76,6 +103,10 @@ public class WheelController : MonoBehaviour
         rearRightWheel.transform.Rotate(rearRightRotationSpeed * Time.deltaTime, 0f, 0f);
     }
 
+    /// <summary>
+    /// Applique la direction des roues avant en fonction de l'entrée horizontale.
+    /// </summary>
+    /// <param name="steerInput">Entrée horizontale de l'utilisateur pour tourner le véhicule.</param>
     void SteerWheels(float steerInput)
     {
         float steerAngle = steerInput * 30f; // Limiter l'angle de braquage à 30°
@@ -83,6 +114,10 @@ public class WheelController : MonoBehaviour
         frontRightWheel.transform.localRotation = Quaternion.Euler(0f, steerAngle, 0f);
     }
 
+    /// <summary>
+    /// Applique les effets de freinage (particules et son) si le véhicule freine.
+    /// </summary>
+    /// <param name="isBraking">Indique si le véhicule est en train de freiner.</param>
     void ApplyBrakeEffects(bool isBraking)
     {
         UpdateParticleEffect(isBraking, frontLeftWheel, brakeParticlesFrontLeft);
@@ -100,6 +135,12 @@ public class WheelController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Met à jour les effets de particules de freinage en fonction de l'état de freinage.
+    /// </summary>
+    /// <param name="isBraking">Indique si le véhicule est en train de freiner.</param>
+    /// <param name="wheel">La roue concernée pour l'effet de particules.</param>
+    /// <param name="brakeParticles">Le système de particules associé à la roue.</param>
     void UpdateParticleEffect(bool isBraking, GameObject wheel, ParticleSystem brakeParticles)
     {
         if (isBraking)

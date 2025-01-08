@@ -106,8 +106,10 @@ public class PlayerController_Physique13 : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        // Vérifie si l'objet entrant a le tag "Obstacle"
         if (other.CompareTag("Obstacle"))
         {
+            // Déclenche l'événement de collision dans le SoundManager
             SoundManager.Instance.OnCollision.Invoke();
         }
     }
