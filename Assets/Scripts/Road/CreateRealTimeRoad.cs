@@ -250,9 +250,11 @@ public class CreateRealTimeRoad : MonoBehaviour
     {
         // Mise à jour de l'offset des obstacles en réduisant par un pourcentage
         activeDifficulty.offsetObstacle *= 1 - (activeDifficulty.pourcentageReductionOffset / 100);
+        activeDifficulty.offsetObstacle = Mathf.Clamp(activeDifficulty.offsetObstacle, 1, 3);
 
         // Mise à jour de la probabilité de génération des obstacles en augmentant par un pourcentage
         activeDifficulty.probaGeneration *= 1 + (activeDifficulty.pourcentageAugmentationProbaGenration / 100);
+        activeDifficulty.probaGeneration = Mathf.Clamp(activeDifficulty.probaGeneration, 0, 100);
 
         // Affichage dans la console des nouveaux paramètres de difficulté
         Debug.Log($"Mise à jour des paramètres de difficulté : Offset : {activeDifficulty.offsetObstacle}, Proba : {activeDifficulty.probaGeneration} ");
