@@ -72,6 +72,8 @@ public class CreateRealTimeRoad : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log(GlobalVariables.graphismMode);
+
         SkyDome = GameObject.Find("SkyDome");
         MountainSkybox = GameObject.Find("MountainSkybox");
 
@@ -89,6 +91,11 @@ public class CreateRealTimeRoad : MonoBehaviour
             totalProbaObst += p.proba;
             p.proba += previousProb;
             previousProb = p.proba;
+
+            if (GlobalVariables.graphismMode == "Realiste") {
+                LODGroup lod = p.obst.GetComponent<LODGroup>();
+                if(lod != null) lod.enabled = false;
+            }
         }
 
         foreach (ProbaObst p in probaObsts)

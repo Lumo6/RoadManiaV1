@@ -12,6 +12,15 @@ public class PlaySound : MonoBehaviour
     public AudioClip clickSound;
     public AudioClip quitSound;
 
+    private AudioSource[] audioSources;
+
+    void Start() {
+        audioSources = GetComponents<AudioSource>();
+        foreach(AudioSource audio in audioSources) {
+            audio.volume = GlobalVariables.soundLevel;
+        }
+    }
+
     void Update()
     {
         audioSource.volume = GlobalVariables.soundLevel;

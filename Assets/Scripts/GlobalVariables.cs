@@ -13,4 +13,6 @@ public static class GlobalVariables
     public static int difficulty = 0;
 
     public static float soundLevel = 0.5f;
+
+    public static string graphismMode = "Realiste";
 }

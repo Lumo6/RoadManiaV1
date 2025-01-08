@@ -6,7 +6,6 @@ public class SoundManager : MonoBehaviour
 {
     private static SoundManager _instance;
 
-
     public AudioSource audioSource;
     public AudioClip bonusGhostSound;
     public AudioClip malusScreenSound;
