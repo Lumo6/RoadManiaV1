@@ -60,7 +60,7 @@ public class PlayerController_Physique13 : MonoBehaviour
             maxSpeed *= 1.2f;
             minSpeed *= 1.2f;
         }
-        if (gameObject.transform.position.y < -1.0f || gameObject.transform.position.y >= 10.0f)
+        if (gameObject.transform.position.y < -1.0f || gameObject.transform.position.y >= 7.0f)
         {
             SceneManager.LoadScene("SceneLoser");
         }

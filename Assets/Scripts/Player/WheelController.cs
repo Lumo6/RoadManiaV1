@@ -137,26 +137,63 @@ public class WheelController : MonoBehaviour
 
     /// <summary>
     /// Met à jour les effets de particules de freinage en fonction de l'état de freinage.
+    /// Ajoute un effet de fondu lors de l'arrêt des particules.
     /// </summary>
     /// <param name="isBraking">Indique si le véhicule est en train de freiner.</param>
     /// <param name="wheel">La roue concernée pour l'effet de particules.</param>
     /// <param name="brakeParticles">Le système de particules associé à la roue.</param>
     void UpdateParticleEffect(bool isBraking, GameObject wheel, ParticleSystem brakeParticles)
     {
+        var main = brakeParticles.main;
+
         if (isBraking)
         {
             if (!brakeParticles.isPlaying)
             {
                 brakeParticles.Play();
             }
+            // Fait en sorte que les particules restent aux roues
             brakeParticles.transform.position = wheel.transform.position;
+
+            // Réinitialise l'alpha des particules pour être visible pendant le freinage
+            if (main.startColor.color.a < 1f)
+            {
+                main.startColor = new Color(main.startColor.color.r, main.startColor.color.g, main.startColor.color.b, 1f);
+            }
         }
         else
         {
             if (brakeParticles.isPlaying)
             {
-                brakeParticles.Stop();
+                // Lancer un fondu avant d'arrêter les particules
+                StartCoroutine(FadeOutParticles(brakeParticles, main));
             }
         }
+    }
+
+    /// <summary>
+    /// Coroutine qui effectue un fondu de l'alpha des particules avant de les arrêter.
+    /// </summary>
+    /// <param name="brakeParticles">Le système de particules à faire fondre.</param>
+    /// <param name="main">Le module principal des particules pour manipuler l'alpha.</param>
+    /// <returns>Un IEnumerator pour la coroutine.</returns>
+    System.Collections.IEnumerator FadeOutParticles(ParticleSystem brakeParticles, ParticleSystem.MainModule main)
+    {
+        float fadeDuration = 1.0f;  // Durée du fondu
+        float startAlpha = main.startColor.color.a;
+        float timeElapsed = 0f;
+
+        // Diminue progressivement l'alpha des particules
+        while (timeElapsed < fadeDuration)
+        {
+            float alpha = Mathf.Lerp(startAlpha, 0f, timeElapsed / fadeDuration);
+            main.startColor = new Color(main.startColor.color.r, main.startColor.color.g, main.startColor.color.b, alpha);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        // S'assurer que les particules sont complètement transparentes avant de les arrêter
+        main.startColor = new Color(main.startColor.color.r, main.startColor.color.g, main.startColor.color.b, 0f);
+        brakeParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
     }
 }
