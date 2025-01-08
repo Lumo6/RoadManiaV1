@@ -16216,6 +16216,8 @@ MonoBehaviour:
     obst: {fileID: 8090969054352125060, guid: 6671c4fe7407f014c804339cf9740156, type: 3}
   - proba: 100
     obst: {fileID: 2034156587001074504, guid: 3a4f32b36d793ea438b3670df676f4d6, type: 3}
+  - proba: 75
+    obst: {fileID: 515175755739571116, guid: 69eab817c5a68b041b838359edaa831c, type: 3}
   increasePeriod: 10
   isDebug: 0
   TMP_Text_Meters: {fileID: 1652117855}

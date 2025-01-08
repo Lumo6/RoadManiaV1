@@ -77,6 +77,10 @@ PrefabInstance:
       value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 4742473837712756890, guid: dbbc71c5c034c87408934a8aec5dad1c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4742473837712756890, guid: dbbc71c5c034c87408934a8aec5dad1c, type: 3}
       propertyPath: m_LODs.Array.data[0].screenRelativeHeight
       value: 0.11
       objectReference: {fileID: 0}
