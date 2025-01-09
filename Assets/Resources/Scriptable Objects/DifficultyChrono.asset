@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficultyLevel: 3
   offsetObstacle: 2
-  probaGeneration: 95
-  timeChrono: 5
+  probaGeneration: 97.5
+  timeChrono: 30
   evolutionDifficulte: 0
-  pourcentageReductionOffset: 0
-  pourcentageAugmentationProbaGenration: 0
-  toutesLesNbSecondes: 0
-  toutesLesNbMetres: 0
+  pourcentageReductionOffset: 1.5
+  pourcentageAugmentationProbaGenration: 1.5
+  toutesLesNbSecondes: 10
+  toutesLesNbMetres: 150

@@ -17,7 +17,7 @@ MonoBehaviour:
   probaGeneration: 100
   timeChrono: 0
   evolutionDifficulte: 0
-  pourcentageReductionOffset: 5
-  pourcentageAugmentationProbaGenration: 5
+  pourcentageReductionOffset: 2.5
+  pourcentageAugmentationProbaGenration: 2.5
   toutesLesNbSecondes: 10
   toutesLesNbMetres: 100

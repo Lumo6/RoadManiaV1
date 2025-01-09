@@ -47,8 +47,9 @@ public class MovingObstacle : MonoBehaviour
     void Start()
     {
         // Calcul de la largeur de la route pour le déplacement
-        p_roadWidth = road.GetComponent<Renderer>().bounds.size.x / 2;
-        p_roadWidth -= this.GetComponent<Renderer>().bounds.size.x / 2;
+        // Mise en commentaire de la seconde ligne et suppression du /2 pour que l'obstacle se déplacement plus
+        p_roadWidth = road.GetComponent<Renderer>().bounds.size.x;
+        //p_roadWidth -= this.GetComponent<Renderer>().bounds.size.x / 2;
 
         // Position initiale de l'obstacle
         p_posTarget = transform.position;
@@ -81,7 +82,7 @@ public class MovingObstacle : MonoBehaviour
         if (importance >= 1.0f) Destroy(gameObject);
 
         // Si l'objet est visible et important, activer son comportement (ici déplacement et animation)
-        if (isVisible && isImportant)
+        if ((isVisible && isImportant) || GlobalVariables.graphismMode == "Realiste")
         {
             // Activer le mouvement si nécessaire
             if (!isMoving)

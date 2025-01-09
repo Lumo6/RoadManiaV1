@@ -11378,9 +11378,9 @@ MonoBehaviour:
     obst: {fileID: 1884074337756752357, guid: cb04eea70ee14ab49b68d12e2cbbf680, type: 3}
   - proba: 50
     obst: {fileID: 5389131940831772553, guid: fe217fa2db5f6ae4294f62965ee990a5, type: 3}
-  - proba: 1
+  - proba: 20
     obst: {fileID: 3424649009204883445, guid: 28493fb69e4ee1e4d818bc5416c502fa, type: 3}
-  - proba: 1
+  - proba: 20
     obst: {fileID: 498253721416304272, guid: f6ab88624626d1249bd73bcb4a1c7d59, type: 3}
   - proba: 50
     obst: {fileID: 8090969054352125060, guid: 6671c4fe7407f014c804339cf9740156, type: 3}

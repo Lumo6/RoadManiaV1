@@ -84,6 +84,7 @@ public class CreateRealTimeRoad : MonoBehaviour
 
     void Awake()
     {
+
         // Récupération de l'environnement
         SkyDome = GameObject.Find("SkyDome");
         MountainSkybox = GameObject.Find("MountainSkybox");
@@ -106,9 +107,11 @@ public class CreateRealTimeRoad : MonoBehaviour
             previousProb = p.proba;
 
             // Pour chaque obstacles, si le mode est Réaliste, on désactive les LODs
+            LODGroup lod = p.obst.GetComponent<LODGroup>();
             if (GlobalVariables.graphismMode == "Realiste") {
-                LODGroup lod = p.obst.GetComponent<LODGroup>();
                 if(lod != null) lod.enabled = false;
+            } else {
+                if(lod != null) lod.enabled = true;
             }
         }
 
