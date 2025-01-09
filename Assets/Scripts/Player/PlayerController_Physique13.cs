@@ -60,11 +60,17 @@ public class PlayerController_Physique13 : MonoBehaviour
             maxSpeed *= 1.2f;
             minSpeed *= 1.2f;
         }
+
+        // Si la hauteur (position dans le monde) de la voiture est inférieur à 1 ou supérieur à 7
+        // Alors j'en déduis que la voiture s'est pris un obstacle qui la fait dévier
+        // Ainsi je lance la coroutine qui permet de jouer le son de collision et de lancer la scène de fin.
         if (gameObject.transform.position.y < -1.0f || gameObject.transform.position.y >= 7.0f)
         {
-            SceneManager.LoadScene("SceneLoser");
+            // Charger la scène de "perte" après un délai
+            StartCoroutine(PlaySoundAndChangeScene());
         }
     }
+
     void FixedUpdate()
     {
         accel_x = signAccel * amplitudeSpeed * accelerationSpeedCURVE.Evaluate(Time.time / timeFromMinToMax);
@@ -82,7 +88,7 @@ public class PlayerController_Physique13 : MonoBehaviour
 
         bCheckRotaY = Mathf.Abs(player.transform.rotation.y) > 1.0f ? false : true;
 
-        if(player.transform.rotation.x < -45)
+        if (player.transform.rotation.x < -45)
         {
             rb.MoveRotation(rb.rotation * Quaternion.Euler(0, Time.fixedDeltaTime * turnspeed * horizontalInput, 0));
         }
@@ -112,5 +118,24 @@ public class PlayerController_Physique13 : MonoBehaviour
             // Déclenche l'événement de collision dans le SoundManager
             SoundManager.Instance.OnCollision.Invoke();
         }
+    }
+
+    // Coroutine pour jouer le son et changer la scène après un délai
+    System.Collections.IEnumerator PlaySoundAndChangeScene()
+    {
+        // Joue le son de collision
+        if (SoundManager.Instance.audioSource.isPlaying)
+        {
+            SoundManager.Instance.audioSource.Stop();
+        }
+
+        // Joue le son de collision
+        SoundManager.Instance.OnCollision.Invoke();
+
+        // Attend que le son se joue pendant un certain temps (par exemple, 2 secondes)
+        yield return new WaitForSeconds(0.5f);
+
+        // Changer de scène après le délai
+        SceneManager.LoadScene("SceneLoser");
     }
 }
